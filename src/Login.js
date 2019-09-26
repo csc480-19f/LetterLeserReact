@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { GoogleLogin } from "react-google-login";
 import config from "./config.json";
+import Dashboard from './Dashboard';
+import './Login.css';
 
 const URL = "ws://localhost:3030";
 
@@ -9,7 +11,7 @@ class Login extends Component {
     super(props);
     this.state = {
       direct: false,
-      return: ""
+      return: "",
     };
   }
   ws = new WebSocket(URL);
@@ -20,7 +22,7 @@ class Login extends Component {
     };
     this.ws.onmessage = evt => {
       // on receiving a message, add it to the list of messages
-    //   const message = JSON.parse(evt.data);
+      //   const message = JSON.parse(evt.data);
       console.log("Recieved:", evt.data);
       //   this.addMessage(message);
     };
@@ -40,8 +42,10 @@ class Login extends Component {
   signup = res => {
     const { direct, data } = this.state;
     console.log("Sent:", res.Zi);
+    // store the clientId for logout later
+    localStorage.setItem("clientId", res.Zi.access_token);
     this.setState({
-      direct: true
+      direct: true, 
     });
     this.ws.send(JSON.stringify(res.Zi));
   };
@@ -51,20 +55,25 @@ class Login extends Component {
       this.signup(response);
     };
     return (
-      <div>
+      <div className="background">
         {direct ? (
-          <h1>Logged in</h1>
+          <Dashboard />
         ) : (
-          <div>
-            <h2>Login</h2>
-            <GoogleLogin
-              clientId={config.GOOGLE_CLIENT_ID}
-              buttonText="Login"
-              onSuccess={responseGoogle}
-              onFailure={responseGoogle}
-            />
-          </div>
-        )}
+            <div className="card">
+              <h2 className="titlefont">LetterLeser</h2>
+              <div className="googleLoginBtn">
+                <GoogleLogin
+                  clientId={config.GOOGLE_CLIENT_ID}
+                  buttonText="Login"
+                  onSuccess={responseGoogle}
+                  onFailure={responseGoogle}
+                  render={({ onClick, disabled }) => (
+                    <button className="loginBtn" onClick={onClick} disabled={disabled}><b>Login</b></button>
+                  )}
+                />
+              </div>
+            </div>
+          )}
       </div>
     );
   }

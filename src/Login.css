@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css?family=Courgette');
+
+.card {
+    /* Add shadows to create the "card" effect */
+    box-shadow: 4px 4px 8px 0 rgb(19, 18, 18);
+    transition: 0.3s;
+    width: 350px; 
+    height: 200px;
+    margin-top: 200px; 
+    margin-left: 500px; 
+    background-color: #275937;
+}
+
+.titlefont {
+    color: white;
+    text-align: center;
+    font-size: 50px; 
+    margin-top: 35px; 
+    font-family: 'Courgette';
+}
+
+.googleLoginBtn {
+    text-align: center;
+}
+
+.loginBtn {
+    color: black;
+    background-color: #F6BC3D;
+    border: none;
+    font-size: 20px; 
+    padding: 10px; 
+    width: 90%;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 6px;
+}

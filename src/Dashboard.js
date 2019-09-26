@@ -1,0 +1,79 @@
+import React from 'react';
+import './Dashboard.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
+import Login from './Login';
+import SideNav from './SideNav';
+import ContextMenu from './ContextMenu';
+import Sentiment from './charts/sentiment';
+import SentAndReceived from './charts/sent-and-recieved';
+import EmailsByDomain from './charts/emails-by-domain';
+import EmailsByTopic from './charts/emails-by-topic';
+import NumberOfEmails from './charts/number-of-emails';
+import TimeBetweenReplies from './charts/time-between-replies';
+
+class Dashboard extends React.Component {
+
+    constructor(props) {
+        super(props)
+        this.handler = this.handler.bind(this)
+    }
+
+    handler(state) {
+        this.setState({
+            logout: state
+        })
+    }
+
+    state = {
+        showContextMenu: false,
+        logout: false
+    };
+
+    handleHamburgerClick = () => {
+        this.setState({
+            showContextMenu: !this.state.showContextMenu
+        })
+    };
+
+    render() {
+        return (
+            <div>
+                {this.state.logout ? (<Login />) : (
+                    <div>
+                        <div className="topnav">
+                            <span className="navTitle"><b>LetterLeser</b></span>
+                            <span className="navBars" onClick={this.handleHamburgerClick}>
+                                <FontAwesomeIcon icon={faBars} />
+                            </span>
+                            <span className="logo"><img src="oswego_logo.png" height="50"></img></span>
+                        </div>
+                        <div className="contextMenu">
+                            {this.state.showContextMenu ? <ContextMenu handler={this.handler} /> : null}
+                        </div>
+                        <div className="sidenav">
+                            <SideNav></SideNav>
+                        </div>
+                        <div className="dashboardBody">
+                            <Sentiment></Sentiment>
+                            <div className="chart-right">
+                                <SentAndReceived></SentAndReceived>
+                            </div>
+                            <br></br>
+                            <EmailsByDomain></EmailsByDomain>
+                            <div className="chart-right">
+                                <NumberOfEmails></NumberOfEmails>
+                            </div>
+                            <EmailsByTopic></EmailsByTopic>
+                            <div className="chart-right time">
+                                <TimeBetweenReplies></TimeBetweenReplies>
+                            </div>
+                        </div>
+                    </div>
+                )}
+            </div>
+        );
+    }
+}
+
+export default Dashboard;

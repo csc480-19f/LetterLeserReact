@@ -1,0 +1,17 @@
+.dropdown-content {
+    background-color: #275937;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.dropdown-content a {
+    padding: 10px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.dropdown-content a:hover {
+    font-weight: bolder;
+}
