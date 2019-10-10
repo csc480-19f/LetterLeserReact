@@ -8,7 +8,7 @@ import ContextMenu from './ContextMenu';
 import Sentiment from './charts/sentiment';
 import SentAndReceived from './charts/sent-and-recieved';
 import EmailsByDomain from './charts/emails-by-domain';
-import EmailsByTopic from './charts/emails-by-topic';
+import EmailsByFolder from './charts/emails-by-folder';
 import NumberOfEmails from './charts/number-of-emails';
 import TimeBetweenReplies from './charts/time-between-replies';
 
@@ -64,7 +64,7 @@ class Dashboard extends React.Component {
                             <div className="chart-right">
                                 <NumberOfEmails></NumberOfEmails>
                             </div>
-                            <EmailsByTopic></EmailsByTopic>
+                            <EmailsByFolder></EmailsByFolder>
                             <div className="chart-right time">
                                 <TimeBetweenReplies></TimeBetweenReplies>
                             </div>

@@ -7,6 +7,7 @@ class SideNav extends React.Component {
 
     state = {
         startDate: new Date(), 
+        endDate: null,
         showFavorites: false, 
         showFolders: false,
         filterInterval: null, 
@@ -17,9 +18,15 @@ class SideNav extends React.Component {
         folders: []
     };
 
-    handleChange = date => {
+    handleStartChange = date => {
         this.setState({
             startDate: date
+        });
+    };
+
+    handleEndChange = date => {
+        this.setState({
+            endDate: date
         });
     };
 
@@ -62,6 +69,7 @@ class SideNav extends React.Component {
     clearFilter = () => {
         this.setState({
             startDate: new Date(), 
+            endDate: null,
             filterInterval: null,
             flaggedEmail: false,
             attachment: false,
@@ -111,7 +119,14 @@ class SideNav extends React.Component {
                     Start Date: <br></br>
                     <DatePicker
                         selected={this.state.startDate}
-                        onChange={this.handleChange}
+                        onChange={this.handleStartChange}
+                    />
+                    <br></br>
+                    <br></br>
+                    End Date (Optional): <br></br>
+                    <DatePicker
+                        selected={this.state.endDate}
+                        onChange={this.handleEndChange}
                     />
                     <br></br><br></br>
                     Set Interval: <br></br>
@@ -133,7 +148,7 @@ class SideNav extends React.Component {
                             style={"year" === this.state.filterInterval ? { backgroundColor: '#F6BC3D' } : { backgroundColor: 'white' }}
                             onClick={this.handleIntervalBtnClick}>
                             Year
-                            </button>
+                        </button>
                     </div>
                     <br></br><br></br>
                     Contains: <br></br>

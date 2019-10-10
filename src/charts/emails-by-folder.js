@@ -21,10 +21,10 @@ const options = {
         enabled: false
     },
     title: {
-        text: 'Emails by Domain'
-    },
+        text: 'Emails By Folder'
+    }, 
     series: [{
-        type: "sunburst",
+        type: 'sunburst',
         data: data,
         allowDrillToNode: true,
         cursor: 'pointer',
@@ -71,7 +71,7 @@ const options = {
     }
 }
 
-class EmailsByDomain extends React.Component {
+class EmailsByFolder extends React.Component {
 
     //render the highcharts component
     render() {
@@ -86,4 +86,4 @@ class EmailsByDomain extends React.Component {
     }
 }
 
-export default EmailsByDomain;
+export default EmailsByFolder;
