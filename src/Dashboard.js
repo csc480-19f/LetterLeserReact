@@ -2,8 +2,10 @@ import React from 'react';
 import './Dashboard.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
 import Login from './Login';
 import SideNav from './SideNav';
+import Modal from './common/modal';
 import ContextMenu from './ContextMenu';
 import Sentiment from './charts/sentiment';
 import SentAndReceived from './charts/sent-and-recieved';
@@ -27,7 +29,10 @@ class Dashboard extends React.Component {
 
     state = {
         showContextMenu: false,
-        logout: false
+        logout: false,
+        message: null,
+        showModal: false,
+        saveFavorite: false
     };
 
     handleHamburgerClick = () => {
@@ -36,13 +41,31 @@ class Dashboard extends React.Component {
         })
     };
 
+    handleShowModal = (boolean) => {
+        this.setState({
+            showModal: true
+        });
+    }
+
+    handleSaveFavorite = (favoriteName) => {
+        this.setState({
+            saveFavorite: favoriteName,
+            showModal: false
+        })
+    }
+
     render() {
         return (
             <div>
                 {this.state.logout ? (<Login />) : (
                     <div>
+                        <Modal 
+                            show={this.state.showModal}
+                            onSaveFavorite={this.handleSaveFavorite}>
+                        </Modal>
                         <div className="topnav">
                             <span className="navTitle"><b>LetterLeser</b></span>
+                            <span className="favorite"><FontAwesomeIcon icon={faStar} /></span>
                             <span className="navBars" onClick={this.handleHamburgerClick}>
                                 <FontAwesomeIcon icon={faBars} />
                             </span>
@@ -52,7 +75,9 @@ class Dashboard extends React.Component {
                             {this.state.showContextMenu ? <ContextMenu handler={this.handler} /> : null}
                         </div>
                         <div className="sidenav">
-                            <SideNav></SideNav>
+                            <SideNav 
+                                saveFavorite={this.state.saveFavorite}
+                                onAddFavorite={this.handleShowModal}></SideNav>
                         </div>
                         <div className="dashboardBody">
                             <Sentiment></Sentiment>

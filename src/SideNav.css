@@ -146,3 +146,11 @@
     list-style-type: none;
     color: white;
 }
+
+  .item {
+    cursor: pointer;
+  }
+
+  .selected {
+    color: rgb(248, 206, 116);
+  }

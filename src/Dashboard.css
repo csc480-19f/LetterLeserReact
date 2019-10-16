@@ -52,6 +52,10 @@
   .dashboardBody {
       margin-left: 260px;
   }
+
+  .favorite {
+      display: none;
+  }
   
   .chart-right {
       margin-left: 500px;

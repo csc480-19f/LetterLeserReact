@@ -10,7 +10,7 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      direct: false,
+      direct: true,
       return: "",
     };
   }
@@ -34,10 +34,6 @@ class Login extends Component {
       });
     };
   }
-  //   addMessage = message => {
-  //     this.setState(state => ({ return: message }));
-  //     console.log(this.state.return);
-  //   };
 
   signup = res => {
     const { direct, data } = this.state;

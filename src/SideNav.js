@@ -6,27 +6,36 @@ import './SideNav.css';
 class SideNav extends React.Component {
 
     state = {
-        startDate: new Date(), 
-        endDate: null,
+        startDate: new Date(),
         showFavorites: false, 
         showFolders: false,
         filterInterval: null, 
         flaggedEmail: false,
         attachment: false,
         seen: false,
-        favorites: [],
-        folders: []
+        favorites: ["Favorite 1", "Favorite 2"],
+        folders: ["Folder 1", "Folder 2"], 
+        selectedFavorite: null,
+        selectedFolder: null, 
+        newFavoriteName: null
     };
+
+    constructor(props) {
+        super(props);
+    }
+
+    componentWillReceiveProps(props) {
+        this.setState({ 
+            newFavoriteName: props.saveFavorite
+        });
+        if (this.state.newFavoriteName != null && props.saveFavorite != false) {
+            this.handleSaveFavorite(props.saveFavorite);
+        }
+    }
 
     handleStartChange = date => {
         this.setState({
             startDate: date
-        });
-    };
-
-    handleEndChange = date => {
-        this.setState({
-            endDate: date
         });
     };
 
@@ -42,9 +51,44 @@ class SideNav extends React.Component {
         })
     }
 
+    handleSelectFavorite = event => {
+        this.setState({
+            selectedFavorite: event.target.innerText
+        })
+    }
+
+    handleAddFavorite = () => {
+        this.props.onAddFavorite(true);
+    }
+
+    handleSaveFavorite = (favoriteName) => {
+        //todo: send message to engine with favorite data
+        //todo: attachment boolean? flagged email?
+        var jsonObj = `
+        { "MessageType":"AddFavorites",
+	        "FavoriteName": "` + favoriteName + `" ,
+	        "Filter": {
+		        "FolderName": "` + this.state.selectedFolder + `",
+		        "Date": "` + this.state.startDate + `",
+		        "Interval": "` + this.state.filterInterval + `",
+		        "Attachment":"` +  this.state.attachment +`",
+                "Seen":"` + this.state.seen + `"
+            }
+        }`;
+        this.setState({
+            newFavoriteName: null
+        })
+    }
+
     handleToggleFolders = () => {
         this.setState({
             showFolders: !this.state.showFolders
+        })
+    }
+
+    handleSelectFolder = event => {
+        this.setState({
+            selectedFolder: event.target.innerText
         })
     }
 
@@ -68,8 +112,7 @@ class SideNav extends React.Component {
 
     clearFilter = () => {
         this.setState({
-            startDate: new Date(), 
-            endDate: null,
+            startDate: new Date(),
             filterInterval: null,
             flaggedEmail: false,
             attachment: false,
@@ -93,7 +136,12 @@ class SideNav extends React.Component {
                 <div style={!this.state.showFavorites ? { display: 'none' } : {}}>
                     <ul className="sidenav-lists">
                         {
-                            this.state.favorites.map(el => <li value={el}> {el} </li>)
+                            this.state.favorites.map(el => 
+                                <li value={el} 
+                                    className="item"
+                                    style={el === this.state.selectedFavorite ? { color: '#f8ce74' } : { color: 'white' }}
+                                    onClick={this.handleSelectFavorite}> {el} 
+                                </li>)
                         }
                     </ul>
                 </div>
@@ -108,7 +156,12 @@ class SideNav extends React.Component {
                 <div style={!this.state.showFolders ? { display: 'none' } : {}}>
                     <ul className="sidenav-lists">
                         {
-                            this.state.folders.map(el => <li value={el}> {el} </li>)
+                            this.state.folders.map(el => 
+                            <li value={el}
+                            className="item"
+                            style={el === this.state.selectedFolder ? { color: '#f8ce74' } : { color: 'white' }}
+                            onClick={this.handleSelectFolder}> {el} 
+                            </li>)
                         }
                     </ul>
                 </div>
@@ -123,12 +176,6 @@ class SideNav extends React.Component {
                     />
                     <br></br>
                     <br></br>
-                    End Date (Optional): <br></br>
-                    <DatePicker
-                        selected={this.state.endDate}
-                        onChange={this.handleEndChange}
-                    />
-                    <br></br><br></br>
                     Set Interval: <br></br>
                     <div className="btnsGroup">
                         <button className="intervalBtn"
@@ -174,11 +221,19 @@ class SideNav extends React.Component {
                             <span className="checkmark"></span>
                         </label>
                     </div>
+                    <div>
+                        <br></br><br></br>
+                        <button className="intervalBtn">
+                            Go
+                        </button>
+                        <button className="intervalBtn" onClick={this.handleAddFavorite}>
+                            Add Favorite
+                        </button>
+                    </div>
                 </div>
             </div>
         );
     }
-
 }
 
 export default SideNav;
