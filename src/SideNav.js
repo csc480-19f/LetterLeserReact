@@ -1,5 +1,7 @@
 import React from 'react';
 import DatePicker from "react-datepicker";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 import "react-datepicker/dist/react-datepicker.css";
 import './SideNav.css';
 
@@ -18,7 +20,8 @@ class SideNav extends React.Component {
         selectedFavorite: null,
         selectedFolder: null,
         newFavoriteName: null,
-        ws: null
+        ws: null, 
+        showDeleteFavorites: false
     };
 
     constructor(props) {
@@ -61,6 +64,8 @@ class SideNav extends React.Component {
         { "MessageType":"CallFavorite",
 	        "FavoriteName": "` + event.target.innerText + `" 
         }`;
+        var favObj = [event.target.innerText];
+        this.props.onSelectFavorite(favObj);
         this.state.ws.send(JSON.stringify(jsonObj));
     }
 
@@ -69,7 +74,6 @@ class SideNav extends React.Component {
     }
 
     handleSaveFavorite = (favoriteName) => {
-        //todo: send message to engine with favorite data
         //todo: attachment boolean? flagged email?
         var jsonObj = `
         { "MessageType":"AddFavorites",
@@ -118,6 +122,28 @@ class SideNav extends React.Component {
         })
     }
 
+    handleEditFavorites = () => {
+        this.setState({
+            showDeleteFavorites: true
+        })
+    }
+
+    doneEditingFavorites = () => {
+        this.setState({
+            showDeleteFavorites: false
+        })
+    }
+
+    deleteFavorite = (event) => {
+        var fav = event.target.parentElement.id;
+        let jsonObj =
+            `{
+                "MessageType": "RemoveFavorite",
+                "FavoriteName":` + fav `
+            }`;
+        this.state.ws.send(JSON.stringify(jsonObj));
+    }
+
     clearFilter = () => {
         this.setState({
             startDate: new Date(),
@@ -128,6 +154,13 @@ class SideNav extends React.Component {
         })
     }
 
+    clearFavoriteSelection = () => {
+        this.setState({
+            selectedFavorite: null
+        })
+        this.props.onClearFavorite(true);
+    }
+
     sendFilter = () => {
         let jsonObj =
             `{
@@ -136,18 +169,17 @@ class SideNav extends React.Component {
                     "FolderName": "` + this.state.selectedFolder + `",
                     "Date": "` + this.state.startDate + `",
                     "Interval": "` + this.state.filterInterval + `",
-                    "Attachment": "` +  this.state.attachment +`",
+                    "Attachment": "` + this.state.attachment + `",
                     "Seen": "` + this.state.seen + `"
                 }
             }`;
-        alert(jsonObj)
         this.state.ws.send(JSON.stringify(jsonObj));
     }
 
     render() {
         return (
             <div className="sidenav">
-                <a className="alt" onClick={this.handleToggleFavorites}>Favorites
+                <a className="alt">Favorites
                         <span className="caret"
                         style={this.state.showFavorites ? { display: 'none' } : {}}
                         onClick={this.handleToggleFavorites}>
@@ -156,18 +188,40 @@ class SideNav extends React.Component {
                         style={!this.state.showFavorites ? { display: 'none' } : {}}
                         onClick={this.handleToggleFavorites}>
                     </span>
+                    <span className="space" >&nbsp; &nbsp;</span>
+                    <span className="clearMsg" onClick={this.clearFavoriteSelection}>Clear Selection</span>
                 </a>
                 <div style={!this.state.showFavorites ? { display: 'none' } : {}}>
                     <ul className="sidenav-lists">
                         {
-                            this.state.favorites.map(el => 
-                                <li value={el} 
+                            this.state.favorites.map(el =>
+                                <li value={el}
                                     className="item"
-                                    style={el === this.state.selectedFavorite ? { color: '#f8ce74' } : { color: 'white' }}
-                                    onClick={this.handleSelectFavorite}> {el} 
-                                </li>)
+                                    style={el === this.state.selectedFavorite ? { color: '#f8ce74' } : { color: 'white' }}>
+                                    <span className="deleteIcon" 
+                                    onClick={this.deleteFavorite}
+                                    id={el}
+                                    style={this.state.showDeleteFavorites ? { display: 'inline'} : { display: 'none'}}>
+                                        <FontAwesomeIcon icon={faMinusCircle} />
+                                        &nbsp; &nbsp;
+                                    </span>
+                                    <span onClick={this.handleSelectFavorite}>
+                                        {el}
+                                    </span>
+                                </li>
+                            )
                         }
                     </ul>
+                    <button 
+                    style={ !this.state.showDeleteFavorites ? { display: 'inline'} : {display: 'none'} }
+                    className="editBtn" onClick={this.handleEditFavorites}>
+                        Edit Favorites
+                    </button>
+                    <button 
+                    style={ this.state.showDeleteFavorites ? { display: 'inline'} : {display: 'none'}}
+                    className="editBtn" onClick={this.doneEditingFavorites}>
+                        Done
+                    </button>
                 </div>
                 <a onClick={this.handleToggleFolders}>Folders
                         <span className="caret"
@@ -180,12 +234,12 @@ class SideNav extends React.Component {
                 <div style={!this.state.showFolders ? { display: 'none' } : {}}>
                     <ul className="sidenav-lists">
                         {
-                            this.state.folders.map(el => 
-                            <li value={el}
-                            className="item"
-                            style={el === this.state.selectedFolder ? { color: '#f8ce74' } : { color: 'white' }}
-                            onClick={this.handleSelectFolder}> {el} 
-                            </li>)
+                            this.state.folders.map(el =>
+                                <li value={el}
+                                    className="item"
+                                    style={el === this.state.selectedFolder ? { color: '#f8ce74' } : { color: 'white' }}
+                                    onClick={this.handleSelectFolder}> {el}
+                                </li>)
                         }
                     </ul>
                 </div>
@@ -254,6 +308,7 @@ class SideNav extends React.Component {
                             Add Favorite
                         </button>
                     </div>
+                    <br></br><br></br>
                 </div>
             </div>
         );

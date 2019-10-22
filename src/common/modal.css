@@ -24,3 +24,8 @@
     margin-right: 5px;
     cursor: pointer;
 }
+
+.errorMsg {
+  color: red;
+  font-weight: bolder;
+}

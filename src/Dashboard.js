@@ -27,18 +27,18 @@ class Dashboard extends React.Component {
 
     componentDidMount() {
         this.ws.onopen = () => {
-          console.log("connected");
+            console.log("connected");
         };
         this.ws.onmessage = evt => {
-          console.log("Recieved:", evt.data);
+            console.log("Recieved:", evt.data);
         };
         this.ws.onclose = () => {
-          console.log("disconnected");
-          this.setState({
-            ws: new WebSocket(URL)
-          });
+            console.log("disconnected");
+            this.setState({
+                ws: new WebSocket(URL)
+            });
         };
-      }
+    }
 
     handler(state) {
         this.setState({
@@ -51,7 +51,10 @@ class Dashboard extends React.Component {
         logout: false,
         message: null,
         showModal: false,
-        saveFavorite: false
+        saveFavorite: false,
+        showFavoriteData: false,
+        selectedFavorite: null,
+        favoritesList: ['Favorite 1', 'Favorite 2']
     };
 
     handleHamburgerClick = () => {
@@ -71,7 +74,20 @@ class Dashboard extends React.Component {
             saveFavorite: favoriteName,
             showModal: false
         })
-        
+    }
+
+    handleShowFavorite = (favorite) => {
+        this.setState({
+            showFavoriteData: true,
+            selectedFavorite: favorite[0]
+        })
+    }
+
+    handleHideFavorite = () => {
+        this.setState({
+            showFavoriteData: false,
+            selectedFavorite: null
+        })
     }
 
     render() {
@@ -79,29 +95,43 @@ class Dashboard extends React.Component {
             <div>
                 {this.state.logout ? (<Login />) : (
                     <div>
-                        <Modal 
+                        <Modal
+                            favorites={this.state.favoritesList}
                             show={this.state.showModal}
                             onSaveFavorite={this.handleSaveFavorite}>
                         </Modal>
                         <div className="topnav">
                             <span className="navTitle"><b>LetterLeser</b></span>
-                            <span className="favorite"><FontAwesomeIcon icon={faStar} /></span>
+                            <span className="favorite"> {this.state.showFavoriteData ?
+                                <span className="favText">
+                                    <FontAwesomeIcon className="favicon" icon={faStar} />
+                                    &nbsp;
+                                    {this.state.selectedFavorite}
+                                </span>
+                                : null
+                            }
+                            </span>
                             <span className="navBars" onClick={this.handleHamburgerClick}>
                                 <FontAwesomeIcon icon={faBars} />
                             </span>
                             <span className="logo"><img src="oswego_logo.png" height="50"></img></span>
                         </div>
                         <div className="contextMenu">
-                            {this.state.showContextMenu ? <ContextMenu 
-                            webSocket={this.ws}
-                            handler={this.handler} /> : null}
+                            {this.state.showContextMenu ? <ContextMenu
+                                webSocket={this.ws}
+                                handler={this.handler} /> : null}
                         </div>
+                        <div className="sidenav-container">
                         <div className="sidenav">
-                            <SideNav 
+                            <SideNav
                                 webSocket={this.ws}
                                 saveFavorite={this.state.saveFavorite}
+                                onClearFavorite={this.handleHideFavorite}
+                                onSelectFavorite={this.handleShowFavorite}
                                 onAddFavorite={this.handleShowModal}></SideNav>
                         </div>
+                        </div>
+                        
                         <div className="dashboardBody">
                             <Sentiment></Sentiment>
                             <div className="chart-right">

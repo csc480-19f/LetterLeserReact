@@ -12,7 +12,7 @@ class Login extends Component {
     this.state = {
       username: null, 
       password: null,
-      direct: true,
+      direct: false,
       return: "",
     };
   }
