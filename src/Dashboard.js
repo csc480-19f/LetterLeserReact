@@ -101,7 +101,7 @@ class Dashboard extends React.Component {
                             onSaveFavorite={this.handleSaveFavorite}>
                         </Modal>
                         <div className="topnav">
-                            <span className="navTitle"><b>LetterLeser</b></span>
+                            <span className="logo-letter"><img src="LetterLeser.svg" height="40"></img></span>
                             <span className="favorite"> {this.state.showFavoriteData ?
                                 <span className="favText">
                                     <FontAwesomeIcon className="favicon" icon={faStar} />
@@ -114,7 +114,7 @@ class Dashboard extends React.Component {
                             <span className="navBars" onClick={this.handleHamburgerClick}>
                                 <FontAwesomeIcon icon={faBars} />
                             </span>
-                            <span className="logo"><img src="oswego_logo.png" height="50"></img></span>
+                            <span className="logo"><img src="Oswego Logo.svg" height="40"></img></span>
                         </div>
                         <div className="contextMenu">
                             {this.state.showContextMenu ? <ContextMenu

@@ -1,13 +1,15 @@
 @import url('https://fonts.googleapis.com/css?family=Courgette');
 
+
 .card {
     /* Add shadows to create the "card" effect */
-    box-shadow: 4px 4px 8px 0 rgb(19, 18, 18);
+    box-shadow: 0px 4px 3px 0 rgb(19, 18, 18);
     transition: 0.3s;
-    width: 350px; 
-    height: 250px;
-    margin-top: 200px; 
-    margin-left: 500px; 
+    padding: 70px 45px 70px 45px;
+    margin-left: 28%;
+    margin-top: 10%;
+    height: auto;
+    width: 40%;
     background-color: #275937;
 }
 
@@ -27,9 +29,9 @@
     color: black;
     background-color: #F6BC3D;
     border: none;
-    font-size: 20px; 
+    font-size: 15px; 
     padding: 10px; 
-    width: 90%;
+    width: 80%;
     cursor: pointer;
     text-align: center;
     border-radius: 6px;
@@ -37,6 +39,12 @@
 
 .creds {
     font-size: 15px;
-    width: 90%;
+    width: 80%;
+    padding: 10px;
     border-radius: 6px;
+}
+
+.logo-login{
+    margin-left: 25%;
+
 }
