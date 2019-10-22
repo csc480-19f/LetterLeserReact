@@ -5,7 +5,7 @@
     box-shadow: 4px 4px 8px 0 rgb(19, 18, 18);
     transition: 0.3s;
     width: 350px; 
-    height: 200px;
+    height: 250px;
     margin-top: 200px; 
     margin-left: 500px; 
     background-color: #275937;
@@ -32,5 +32,11 @@
     width: 90%;
     cursor: pointer;
     text-align: center;
+    border-radius: 6px;
+}
+
+.creds {
+    font-size: 15px;
+    width: 90%;
     border-radius: 6px;
 }

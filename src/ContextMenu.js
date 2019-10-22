@@ -6,10 +6,23 @@ class ContextMenu extends React.Component {
 
     state = {
         logout: false,
+        ws: null
     };
 
+    componentWillReceiveProps(props) {
+        this.setState({
+            ws: props.webSocket
+        });
+    }
+
+    refresh = () => {
+        var jsonObj = `
+        { "MessageType":"Refresh"}`;
+        this.state.ws.send(JSON.stringify(jsonObj));
+    }
+
     logout = () => {
-        localStorage.removeItem("clientId");
+        // localStorage.removeItem("clientId");
         this.setState({
             logout: true
         })
@@ -17,14 +30,15 @@ class ContextMenu extends React.Component {
     }
 
     render() {
-        var clientId = localStorage.getItem("clientId");
+        //var clientId = localStorage.getItem("clientId");
         return (
             <div>
                 <div class="dropdown-content">
-                    <a>Reload Emails</a> <hr></hr>
+                    <a onClick={this.refresh}>Refresh</a> <hr></hr>
                     <a>Settings</a> <hr></hr>
                     <a>Credits</a> <hr></hr>
-                    <GoogleLogout
+                    <a>Logout</a>
+                    {/* <GoogleLogout
                         clientId = {clientId}
                         buttonText="Logout"
                         onLogoutSuccess={this.logout}
@@ -32,7 +46,7 @@ class ContextMenu extends React.Component {
                             <a onClick={onClick} disabled={disabled}>Logout</a>
                         )}
                     >
-                    </GoogleLogout>
+                    </GoogleLogout> */}
                     
                     {/* TODO: https://github.com/anthonyjgrove/react-google-login/pull/110 */}
                 </div>

@@ -7,17 +7,18 @@ class SideNav extends React.Component {
 
     state = {
         startDate: new Date(),
-        showFavorites: false, 
-        showFolders: false,
-        filterInterval: null, 
+        showFavorites: true,
+        showFolders: true,
+        filterInterval: null,
         flaggedEmail: false,
         attachment: false,
         seen: false,
         favorites: ["Favorite 1", "Favorite 2"],
-        folders: ["Folder 1", "Folder 2"], 
+        folders: ["Folder 1", "Folder 2"],
         selectedFavorite: null,
-        selectedFolder: null, 
-        newFavoriteName: null
+        selectedFolder: null,
+        newFavoriteName: null,
+        ws: null
     };
 
     constructor(props) {
@@ -25,8 +26,9 @@ class SideNav extends React.Component {
     }
 
     componentWillReceiveProps(props) {
-        this.setState({ 
-            newFavoriteName: props.saveFavorite
+        this.setState({
+            newFavoriteName: props.saveFavorite,
+            ws: props.webSocket
         });
         if (this.state.newFavoriteName != null && props.saveFavorite != false) {
             this.handleSaveFavorite(props.saveFavorite);
@@ -55,6 +57,11 @@ class SideNav extends React.Component {
         this.setState({
             selectedFavorite: event.target.innerText
         })
+        var jsonObj = `
+        { "MessageType":"CallFavorite",
+	        "FavoriteName": "` + event.target.innerText + `" 
+        }`;
+        this.state.ws.send(JSON.stringify(jsonObj));
     }
 
     handleAddFavorite = () => {
@@ -71,13 +78,14 @@ class SideNav extends React.Component {
 		        "FolderName": "` + this.state.selectedFolder + `",
 		        "Date": "` + this.state.startDate + `",
 		        "Interval": "` + this.state.filterInterval + `",
-		        "Attachment":"` +  this.state.attachment +`",
+		        "Attachment":"` + this.state.attachment + `",
                 "Seen":"` + this.state.seen + `"
             }
         }`;
         this.setState({
             newFavoriteName: null
         })
+        this.state.ws.send(JSON.stringify(jsonObj));
     }
 
     handleToggleFolders = () => {
@@ -118,6 +126,22 @@ class SideNav extends React.Component {
             attachment: false,
             seen: false
         })
+    }
+
+    sendFilter = () => {
+        let jsonObj =
+            `{
+                "MessageType": "Filter",
+                "Filter": {
+                    "FolderName": "` + this.state.selectedFolder + `",
+                    "Date": "` + this.state.startDate + `",
+                    "Interval": "` + this.state.filterInterval + `",
+                    "Attachment": "` +  this.state.attachment +`",
+                    "Seen": "` + this.state.seen + `"
+                }
+            }`;
+        alert(jsonObj)
+        this.state.ws.send(JSON.stringify(jsonObj));
     }
 
     render() {
@@ -223,7 +247,7 @@ class SideNav extends React.Component {
                     </div>
                     <div>
                         <br></br><br></br>
-                        <button className="intervalBtn">
+                        <button className="intervalBtn" onClick={this.sendFilter}>
                             Go
                         </button>
                         <button className="intervalBtn" onClick={this.handleAddFavorite}>

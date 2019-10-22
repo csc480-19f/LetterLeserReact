@@ -14,12 +14,31 @@ import EmailsByFolder from './charts/emails-by-folder';
 import NumberOfEmails from './charts/number-of-emails';
 import TimeBetweenReplies from './charts/time-between-replies';
 
+const URL = "ws://localhost:8080/test/websocketendpoint";
+
 class Dashboard extends React.Component {
+
+    ws = new WebSocket(URL);
 
     constructor(props) {
         super(props)
         this.handler = this.handler.bind(this)
     }
+
+    componentDidMount() {
+        this.ws.onopen = () => {
+          console.log("connected");
+        };
+        this.ws.onmessage = evt => {
+          console.log("Recieved:", evt.data);
+        };
+        this.ws.onclose = () => {
+          console.log("disconnected");
+          this.setState({
+            ws: new WebSocket(URL)
+          });
+        };
+      }
 
     handler(state) {
         this.setState({
@@ -52,6 +71,7 @@ class Dashboard extends React.Component {
             saveFavorite: favoriteName,
             showModal: false
         })
+        
     }
 
     render() {
@@ -72,10 +92,13 @@ class Dashboard extends React.Component {
                             <span className="logo"><img src="oswego_logo.png" height="50"></img></span>
                         </div>
                         <div className="contextMenu">
-                            {this.state.showContextMenu ? <ContextMenu handler={this.handler} /> : null}
+                            {this.state.showContextMenu ? <ContextMenu 
+                            webSocket={this.ws}
+                            handler={this.handler} /> : null}
                         </div>
                         <div className="sidenav">
                             <SideNav 
+                                webSocket={this.ws}
                                 saveFavorite={this.state.saveFavorite}
                                 onAddFavorite={this.handleShowModal}></SideNav>
                         </div>
