@@ -76,7 +76,7 @@ class Login extends Component {
           <Dashboard />
         ) : (
             <div className="card">
-              <h2 className="titlefont">LetterLeser</h2>
+              <span className="logo-login"><img src="LetterLeser.svg" height="50"></img></span>
               <div className="googleLoginBtn">
               <input className="creds" placeholder="Email Address" onChange={this.handleUsername}></input>
               <br></br> <br></br>

@@ -1,7 +1,7 @@
 .sidenav a {
     padding: 6px 8px 6px 16px;
     text-decoration: none;
-    font-size: 20px;
+    font-size: 15px;
     background-color: #275937;
     color: white; 
     display: block;
@@ -9,8 +9,8 @@
   }
 
   .sidenav-contents {
-    margin-top: 5px; 
-    margin-left: 10px;
+    margin-top: 30px; 
+    margin-left: 35px;
     color: white;
     font-size: 15px;
 }
@@ -21,7 +21,8 @@
     background-color: white;
     color: black;
     font-size: 13px;
-    padding: 8px;
+    padding: 10px;
+    padding: 5px 10px 5px 10px;
     margin-right: 5px;
     cursor: pointer;
 }
@@ -133,7 +134,8 @@
 
   .clearMsg {
     float: right;
-    margin-top: 6px;
+    margin-top: 4px;
+    margin-right: 5px;
     font-size: 10px;
     text-decoration: underline;
   }
@@ -148,6 +150,7 @@
 
   .sidenav-lists {
     list-style-type: none;
+    padding: 20px 0px 20px 40px;
     color: white;
 }
 
@@ -165,11 +168,11 @@
     background-color: white;
     color: black;
     font-size: 13px;
-    padding: 8px;
+    padding: 5px 10px 5px 10px;
     margin-right: 5px;
     cursor: pointer;
-    margin-left: 10px;
-    margin-bottom: 10px;
+    margin-left: 40px;
+    margin-bottom: 20px;
 }
 
 .editBtn:hover {

@@ -3,9 +3,8 @@
 .topnav {
     background-color: #2d2d2d;
     overflow: hidden;
-    border-bottom: 2px solid rgba(0,0,0,0.2); 
-    padding-top: 10px; 
-    padding-bottom: 10px; 
+    padding-top: .1rem; 
+    padding-bottom: .1rem; 
     box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
     z-index: 2;
     position: sticky;
@@ -15,22 +14,19 @@
 
 .sidenav-container {
     overflow: hidden;
-    max-height:100vh;
+    max-height:95vh;
 }
 
 .sidenav {
-    width: 250px;
+    width: 285px;
     position: fixed;
     left: 0;
     right: 0;
     background-color: #2d2d2d;
     overflow-y: scroll !important;
     overflow-x: hidden;
-    max-height:560px;
+    height: 90%;
     z-index: 1;
-    border-right: 2px solid rgba(0,0,0,0.2); 
-    border-top: 2px solid rgba(0,0,0,0.2);
-    box-shadow: 0 4px 6px 0 rgba(0,0,0,0.2);
   }
 
 .contextMenu {
@@ -50,13 +46,15 @@
 
 .navBars {
     color: white;
-    font-size: 40px; 
+    font-size: 30px; 
+    padding-right: 40px;
+    padding-top: .4rem;
     float: right; 
-    padding-right: 10px; 
+ 
     cursor: pointer;
 }
   .dashboardBody {
-      margin-left: 260px;
+      margin-left: 350px;
   }
 
   .favorite {
@@ -66,7 +64,7 @@
   }
   
   .chart-right {
-      margin-left: 500px;
+      margin-left: 550px;
       margin-top: -200px;
   }
 
@@ -76,8 +74,15 @@
 
   .logo {
       float: right;
-      margin-right: 50px;
+      margin-right: 75px;
+      margin-top: 5px;
   }
+
+  .logo-letter {
+    float: left;
+    margin-left: 20px;
+    margin-top: 10px;
+}
 
   .favicon {
       font-size: 20px;
