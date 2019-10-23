@@ -31,6 +31,7 @@ class Dashboard extends React.Component {
         };
         this.ws.onmessage = evt => {
             console.log("Recieved:", evt.data);
+            this.handleMessageReceive(JSON.parse(evt.data));
         };
         this.ws.onclose = () => {
             console.log("disconnected");
@@ -38,6 +39,27 @@ class Dashboard extends React.Component {
                 ws: new WebSocket(URL)
             });
         };
+    }
+
+    handleMessageReceive = (msg) => {
+        var types = msg.DataTypes; 
+        if (types.includes("Graphs")) {
+            var score = msg.Graphs.SentimentScore;
+            //todo: emails by domain
+            //todo: emails by folder
+            //todo: emails sent & received
+            //todo: num of emails
+            //todo: time between replies
+        }
+        if (types.includes("FavoriteNames")) {
+            var favorites = msg.FavoriteNames;
+        }
+        if (types.includes("FolderNames")) {
+            var folders = msg.FolderNames;
+        }
+        if (types.includes("Message")) {
+            //todo
+        }
     }
 
     handler(state) {
@@ -133,7 +155,9 @@ class Dashboard extends React.Component {
                         </div>
                         
                         <div className="dashboardBody">
-                            <Sentiment></Sentiment>
+                            <Sentiment
+                                score="55"
+                            ></Sentiment>
                             <div className="chart-right">
                                 <SentAndReceived></SentAndReceived>
                             </div>
