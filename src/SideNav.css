@@ -9,7 +9,7 @@
   }
 
   .sidenav-contents {
-    margin-top: 30px; 
+    margin-top: 0px; 
     margin-left: 35px;
     color: white;
     font-size: 15px;
@@ -21,7 +21,6 @@
     background-color: white;
     color: black;
     font-size: 13px;
-    padding: 10px;
     padding: 5px 10px 5px 10px;
     margin-right: 5px;
     cursor: pointer;
@@ -32,7 +31,7 @@
 }
 
 .btnsGroup {
-    margin-top: 10px;
+    margin-top: 2px;
 }
 
 .containsGroup {
@@ -70,6 +69,7 @@
     left: 0;
     height: 15px;
     width: 15px;
+    margin-top: 1px;
     background-color: #eee;
   }
   
@@ -112,10 +112,11 @@
     border: solid white;
     border-width: 0 2px 2px 0;
     padding: 3px;
+    margin-top: 5px;
+    margin-right: 8px;
     transform: rotate(45deg);
     -webkit-transform: rotate(45deg);
     float: right;
-    margin-top: 6px;
   }
 
   .caret-up {
@@ -123,7 +124,8 @@
     border-width: 0 2px 2px 0;
     padding: 3px;
     float: right;
-    margin-top: 10px;
+    margin-top: 9px;
+    margin-right: 8px;
     transform: rotate(-135deg);
     -webkit-transform: rotate(-135deg);
   }
@@ -135,7 +137,7 @@
   .clearMsg {
     float: right;
     margin-top: 4px;
-    margin-right: 5px;
+    margin-right: 8px;
     font-size: 10px;
     text-decoration: underline;
   }
@@ -181,4 +183,8 @@
 
 .deleteIcon {
   color: red;
+}
+
+.filter-title {
+  padding: 25px 0px 3px 0px;
 }

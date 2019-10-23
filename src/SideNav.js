@@ -247,14 +247,12 @@ class SideNav extends React.Component {
                         <span className="clearMsg" onClick={this.clearFilter}>Clear Filter</span>
                 </a>
                 <div className="sidenav-contents">
-                    Start Date: <br></br>
+                <div class="filter-title">Start Date:</div>
                     <DatePicker
                         selected={this.state.startDate}
                         onChange={this.handleStartChange}
                     />
-                    <br></br>
-                    <br></br>
-                    Set Interval: <br></br>
+                    <div class="filter-title">Set Interval:</div>
                     <div className="btnsGroup">
                         <button className="intervalBtn"
                             value="week"
@@ -275,8 +273,7 @@ class SideNav extends React.Component {
                             Year
                         </button>
                     </div>
-                    <br></br><br></br>
-                    Contains: <br></br>
+                    <div class="filter-title">Contains:</div>
                     <div className="containsGroup">
                         <label className="container"> Flagged Email
                                 <input type="checkbox"
