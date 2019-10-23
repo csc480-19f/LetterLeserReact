@@ -45,6 +45,9 @@ class Dashboard extends React.Component {
         var types = msg.DataTypes; 
         if (types.includes("Graphs")) {
             var score = msg.Graphs.SentimentScore;
+            this.setState({
+                score: Number(score)
+            })
             //todo: emails by domain
             //todo: emails by folder
             //todo: emails sent & received
@@ -76,7 +79,8 @@ class Dashboard extends React.Component {
         saveFavorite: false,
         showFavoriteData: false,
         selectedFavorite: null,
-        favoritesList: ['Favorite 1', 'Favorite 2']
+        favoritesList: ['Favorite 1', 'Favorite 2'],
+        score: null
     };
 
     handleHamburgerClick = () => {
@@ -156,7 +160,7 @@ class Dashboard extends React.Component {
                         
                         <div className="dashboardBody">
                             <Sentiment
-                                score="55"
+                                score={this.state.score}
                             ></Sentiment>
                             <div className="chart-right">
                                 <SentAndReceived></SentAndReceived>

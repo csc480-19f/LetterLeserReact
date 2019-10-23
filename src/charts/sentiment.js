@@ -6,7 +6,7 @@ DarkUnica(Highcharts);
 class Sentiment extends React.Component {
 
     state = {
-        score: 67
+        score: 0,
     }
 
     options = {
@@ -51,23 +51,34 @@ class Sentiment extends React.Component {
             innerSize: '50%',
             data: [
                 {
-                    y: this.state.score,
-                    name: "Positive",
-                    color: "#498958"
-                }, 
-                {
-                    y: 100 - this.state.score,
-                    name: '',
+                    y: 100,
+                    name: ' ',
                     color: 'transparent'
                 }
             ]
         }]
     }
 
+
     componentWillReceiveProps(props) {
         this.setState({
-            score: props.score
+            score: Number(props.score)
         })
+        const chart = this.refs.sentimentChart.chart;
+        chart.update({
+            series: [{
+                data: [{
+                    y: Number(props.score),
+                    name: "Positive",
+                    color: "#498958"
+                },
+                {
+                    y: 100 - Number(props.score),
+                    name: '',
+                    color: 'transparent'
+                }]
+            }]
+        });
     }
 
     //render the highcharts component
@@ -77,6 +88,7 @@ class Sentiment extends React.Component {
                 <HighchartsReact
                     highcharts={Highcharts}
                     options={this.options}
+                    ref="sentimentChart"
                 />
             </div>
         );
