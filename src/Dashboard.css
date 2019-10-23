@@ -13,8 +13,8 @@
 }
 
 .sidenav-container {
-    overflow: hiddens;
-    max-height:100vh;
+    overflow: hidden;
+    max-height:95vh;
 }
 
 .sidenav {
@@ -25,7 +25,7 @@
     background-color: #2d2d2d;
     overflow-y: scroll !important;
     overflow-x: hidden;
-    height: 100%;
+    height: 90%;
     z-index: 1;
   }
 
