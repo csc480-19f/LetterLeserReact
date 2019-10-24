@@ -297,11 +297,11 @@ class SideNav extends React.Component {
                         </label>
                     </div>
                     <div>
-                        <br></br><br></br>
+                        <br></br>
                         <button className="intervalBtn" onClick={this.sendFilter}>
-                            Go
+                            Apply Filters
                         </button>
-                        <button className="intervalBtn" onClick={this.handleAddFavorite}>
+                        <button className="intervalBtn-Favorite" onClick={this.handleAddFavorite}>
                             Add Favorite
                         </button>
                     </div>
