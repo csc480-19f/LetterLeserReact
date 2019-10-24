@@ -4,7 +4,7 @@ import HighchartsReact from 'highcharts-react-official';
 import heatmap from 'highcharts/modules/heatmap.js';
 heatmap(Highcharts);
 
-var categories = [];
+var categories = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
 const options = {
     chart: {
@@ -59,7 +59,6 @@ const options = {
 class NumberOfEmails extends React.Component {
 
     componentWillReceiveProps(props) {
-        categories = props.data.categories;
         const chart = this.refs.heatmapChart.chart;
         chart.update({
             series: [{

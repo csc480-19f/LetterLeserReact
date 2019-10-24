@@ -4,7 +4,7 @@ import config from "./config.json";
 import Dashboard from './Dashboard';
 import './Login.css';
 
-const URL = "ws://pi.cs.oswego.edu:10120/LetterLeser/engine";
+const URL = "ws://localhost:10120/LetterLeser/engine";
 
 class Login extends Component {
   constructor(props) {
@@ -47,10 +47,12 @@ class Login extends Component {
   signup = res => {
 
     let jsonObj = {
+      messagetype: "login",
       email: this.state.username,
       pass: this.state.password
     }
 
+    //this.ws.send(jsonObj);
     this.ws.send(JSON.stringify(jsonObj));
 
     this.setState({

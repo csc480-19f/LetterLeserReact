@@ -14,7 +14,7 @@ import EmailsByFolder from './charts/emails-by-folder';
 import NumberOfEmails from './charts/number-of-emails';
 import TimeBetweenReplies from './charts/time-between-replies';
 
-const URL = "ws://localhost:8080/test/websocketendpoint";
+const URL = "ws://localhost:10120/LetterLeser/engine";
 
 class Dashboard extends React.Component {
 
@@ -42,6 +42,7 @@ class Dashboard extends React.Component {
     }
 
     handleMessageReceive = (msg) => {
+        console.log(msg)
         var types = msg.DataTypes;
         if (types.includes("Graphs")) {
             var score = msg.Graphs.SentimentScore;
@@ -95,14 +96,14 @@ class Dashboard extends React.Component {
         saveFavorite: false,
         showFavoriteData: false,
         selectedFavorite: null,
-        favoritesList: null,
-        foldersList: null,
-        score: null,
-        sentReceived: null,
-        numEmails: null,
-        timeReplies: null,
-        domain: null,
-        folder: null
+        favoritesList: [],
+        foldersList: [],
+        score: 0,
+        sentReceived: [],
+        numEmails: [],
+        timeReplies: [],
+        domain: [],
+        folder: []
     };
 
     handleHamburgerClick = () => {

@@ -4,7 +4,7 @@ import HighchartsReact from 'highcharts-react-official';
 import DarkUnica from 'highcharts/themes/dark-unica';
 DarkUnica(Highcharts);
 
-var categories = [];
+var categories = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
 const options = {
     chart: {
@@ -75,8 +75,6 @@ class SentAndReceived extends React.Component {
         this.setState({
             data: props.data
         })
-        var cats = props.data.categories;
-        categories = cats;
         const chart = this.refs.sentAndReceivedChart.chart;
         var received = [];
         for (var i in props.data.RecievedEmails) {

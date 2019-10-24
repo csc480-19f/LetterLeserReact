@@ -3,11 +3,10 @@ import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import DarkUnica from 'highcharts/themes/dark-unica';
 DarkUnica(Highcharts);
+
 class Sentiment extends React.Component {
 
-    state = {
-        score: 0,
-    }
+    score = 0;
 
     options = {
         chart: {
@@ -59,21 +58,31 @@ class Sentiment extends React.Component {
         }]
     }
 
+    constructor(props) {
+        super(props);
+        this.score = props.score;
+    }
+
+    componentDidMount() {
+        this.updateData();
+    }
 
     componentWillReceiveProps(props) {
-        this.setState({
-            score: Number(props.score)
-        })
+        this.score = props.score;
+        this.updateData();
+    }
+
+    updateData() {
         const chart = this.refs.sentimentChart.chart;
         chart.update({
             series: [{
                 data: [{
-                    y: Number(props.score),
+                    y: Number(this.score),
                     name: "Positive",
                     color: "#498958"
                 },
                 {
-                    y: 100 - Number(props.score),
+                    y: 100 - Number(this.score),
                     name: '',
                     color: 'transparent'
                 }]

@@ -2,7 +2,7 @@ import React from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 
-var categories = [];
+var categories = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
 const options = {
     chart: {
@@ -50,7 +50,6 @@ const options = {
 class TimeBetweenReplies extends React.Component {
 
     componentWillReceiveProps(props) {
-        categories = props.data.categories;
         const chart = this.refs.timeChart.chart;
         chart.update({
             series: [{
