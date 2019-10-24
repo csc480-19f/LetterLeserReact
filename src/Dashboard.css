@@ -47,14 +47,14 @@
 .navBars {
     color: white;
     font-size: 30px; 
-    padding-right: 40px;
+    padding-right: 70px;
     padding-top: .4rem;
     float: right; 
  
     cursor: pointer;
 }
   .dashboardBody {
-      margin-left: 375px;
+      margin-left: 20%;
   }
 
   .favorite {
@@ -62,7 +62,7 @@
   }
   
   .chart-right {
-      margin-left: 550px;
+      margin-left: 40%;
       margin-top: -200px;
   }
 
@@ -72,7 +72,7 @@
 
   .logo {
       float: right;
-      margin-right: 75px;
+      margin-right: 90px;
       margin-top: 5px;
   }
 
