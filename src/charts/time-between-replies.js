@@ -2,6 +2,8 @@ import React from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 
+var categories = [];
+
 const options = {
     chart: {
         type: 'areaspline',
@@ -23,15 +25,7 @@ const options = {
         backgroundColor: 'rgba(0,0,0,0)'
     },
     xAxis: {
-        categories: [
-            'Monday',
-            'Tuesday',
-            'Wednesday',
-            'Thursday',
-            'Friday',
-            'Saturday',
-            'Sunday'
-        ],
+        categories: categories,
     },
     yAxis: {
         title: {
@@ -55,6 +49,20 @@ const options = {
 
 class TimeBetweenReplies extends React.Component {
 
+    componentWillReceiveProps(props) {
+        categories = props.data.categories;
+        const chart = this.refs.timeChart.chart;
+        chart.update({
+            series: [{
+                name: 'Sent Emails',
+                data: props.data.SentEmails
+            }, {
+                name: 'Received Emails',
+                data: props.data.RecievedEmails
+            }]
+        })
+    }
+
     //render the highcharts component
     render() {
         return (
@@ -62,6 +70,7 @@ class TimeBetweenReplies extends React.Component {
                 <HighchartsReact
                     highcharts={Highcharts}
                     options={options}
+                    ref="timeChart"
                 />
             </div>
         );

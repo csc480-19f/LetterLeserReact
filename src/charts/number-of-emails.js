@@ -4,9 +4,8 @@ import HighchartsReact from 'highcharts-react-official';
 import heatmap from 'highcharts/modules/heatmap.js';
 heatmap(Highcharts);
 
+var categories = [];
 
-//highcharts options: set type of chart
-// data series, categories can be loaded dynamically if necessary
 const options = {
     chart: {
         type: 'heatmap',
@@ -26,7 +25,7 @@ const options = {
     },
 
     yAxis: {
-        categories: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+        categories: categories,
         title: null
     },
 
@@ -59,6 +58,22 @@ const options = {
 
 class NumberOfEmails extends React.Component {
 
+    componentWillReceiveProps(props) {
+        categories = props.data.categories;
+        const chart = this.refs.heatmapChart.chart;
+        chart.update({
+            series: [{
+                name: 'Number of Emails',
+                borderWidth: 1,
+                data: props.data.NumberOfEmails,
+                dataLabels: {
+                    enabled: true,
+                    color: '#000000'
+                }
+            }]
+        })
+    }
+
     //render the highcharts component
     render() {
         return (
@@ -66,6 +81,7 @@ class NumberOfEmails extends React.Component {
                 <HighchartsReact
                     highcharts={Highcharts}
                     options={options}
+                    ref="heatmapChart"
                 />
             </div>
         );

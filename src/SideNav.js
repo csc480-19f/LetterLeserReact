@@ -15,8 +15,8 @@ class SideNav extends React.Component {
         flaggedEmail: false,
         attachment: false,
         seen: false,
-        favorites: ["Favorite 1", "Favorite 2"],
-        folders: ["Folder 1", "Folder 2"],
+        favorites: [],
+        folders: [],
         selectedFavorite: null,
         selectedFolder: null,
         newFavoriteName: null,
@@ -31,7 +31,9 @@ class SideNav extends React.Component {
     componentWillReceiveProps(props) {
         this.setState({
             newFavoriteName: props.saveFavorite,
-            ws: props.webSocket
+            ws: props.webSocket,
+            favorites: props.favorites,
+            folders: props.folders
         });
         if (this.state.newFavoriteName != null && props.saveFavorite != false) {
             this.handleSaveFavorite(props.saveFavorite);

@@ -72,6 +72,9 @@ class Dashboard extends React.Component {
         }
         if (types.includes("FolderNames")) {
             var folders = msg.FolderNames;
+            this.setState({
+                foldersList: folders
+            })
         }
         if (types.includes("Message")) {
             //todo
@@ -93,6 +96,7 @@ class Dashboard extends React.Component {
         showFavoriteData: false,
         selectedFavorite: null,
         favoritesList: null,
+        foldersList: null,
         score: null,
         sentReceived: null,
         numEmails: null,
@@ -168,6 +172,8 @@ class Dashboard extends React.Component {
                         <div className="sidenav-container">
                             <div className="sidenav">
                                 <SideNav
+                                    folders={this.state.foldersList}
+                                    favorites={this.state.favoritesList}
                                     webSocket={this.ws}
                                     saveFavorite={this.state.saveFavorite}
                                     onClearFavorite={this.handleHideFavorite}
