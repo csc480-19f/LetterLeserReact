@@ -14,21 +14,18 @@ import EmailsByFolder from './charts/emails-by-folder';
 import NumberOfEmails from './charts/number-of-emails';
 import TimeBetweenReplies from './charts/time-between-replies';
 
-const URL = "ws://localhost:10120/LetterLeser/engine";
 
 class Dashboard extends React.Component {
 
-    ws = new WebSocket(URL);
+    ws = null;
 
     constructor(props) {
         super(props)
         this.handler = this.handler.bind(this)
+        this.ws = props.ws;
     }
 
     componentDidMount() {
-        this.ws.onopen = () => {
-            console.log("connected");
-        };
         this.ws.onmessage = evt => {
             console.log("Recieved:", evt.data);
             this.handleMessageReceive(JSON.parse(evt.data));
@@ -42,42 +39,40 @@ class Dashboard extends React.Component {
     }
 
     handleMessageReceive = (msg) => {
-        console.log(msg)
-        var types = msg.DataTypes;
-        if (types.includes("Graphs")) {
-            var score = msg.Graphs.SentimentScore;
+        if (msg.graphs) {
+            var score = msg.graphs.sentimentscore;
             this.setState({
                 score: Number(score)
             })
             this.setState({
-                domain: msg.Graphs.EmailsByDomain
+                domain: msg.graphs.emailsbydomain
             })
             this.setState({
-                folder: msg.Graphs.EmailsByFolder
+                folder: msg.Graphs.emailsbyfolder
             })
             this.setState({
-                sentReceived: msg.Graphs.EmailsSentAndReceived
+                sentReceived: msg.graphs.emailssentandreceived
             })
             this.setState({
-                numEmails: msg.Graphs.NumberOfEmails
+                numEmails: msg.graphs.numberofemails
             })
             this.setState({
-                timeReplies: msg.Graphs.TimeBetweenReplies
+                timeReplies: msg.graphs.timebetweenreplies
             })
         }
-        if (types.includes("FavoriteNames")) {
+        if (msg.favoitenames) {
             var favorites = msg.FavoriteNames;
             this.setState({
                 favoritesList: favorites
             })
         }
-        if (types.includes("FolderNames")) {
-            var folders = msg.FolderNames;
+        if (msg.foldername) {
+            var folders = msg.foldername;
             this.setState({
                 foldersList: folders
             })
         }
-        if (types.includes("Message")) {
+        if (msg.message) {
             //todo
         }
     }

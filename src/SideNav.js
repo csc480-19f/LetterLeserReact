@@ -20,18 +20,19 @@ class SideNav extends React.Component {
         selectedFavorite: null,
         selectedFolder: null,
         newFavoriteName: null,
-        ws: null, 
         showDeleteFavorites: false
     };
 
+    ws = null;
+
     constructor(props) {
         super(props);
+        this.ws = props.webSocket;
     }
 
     componentWillReceiveProps(props) {
         this.setState({
             newFavoriteName: props.saveFavorite,
-            ws: props.webSocket,
             favorites: props.favorites,
             folders: props.folders
         });
@@ -63,12 +64,12 @@ class SideNav extends React.Component {
             selectedFavorite: event.target.innerText
         })
         var jsonObj = `
-        { "MessageType":"CallFavorite",
-	        "FavoriteName": "` + event.target.innerText + `" 
+        { "messagetype":"callfavorite",
+	        "favoritename": "` + event.target.innerText + `" 
         }`;
         var favObj = [event.target.innerText];
         this.props.onSelectFavorite(favObj);
-        this.state.ws.send(JSON.stringify(jsonObj));
+        this.ws.send(JSON.stringify(jsonObj));
     }
 
     handleAddFavorite = () => {
@@ -91,7 +92,7 @@ class SideNav extends React.Component {
         this.setState({
             newFavoriteName: null
         })
-        this.state.ws.send(JSON.stringify(jsonObj));
+        this.ws.send(JSON.stringify(jsonObj));
     }
 
     handleToggleFolders = () => {
@@ -143,7 +144,7 @@ class SideNav extends React.Component {
                 "MessageType": "RemoveFavorite",
                 "FavoriteName":` + fav `
             }`;
-        this.state.ws.send(JSON.stringify(jsonObj));
+        this.ws.send(JSON.stringify(jsonObj));
     }
 
     clearFilter = () => {
@@ -166,16 +167,17 @@ class SideNav extends React.Component {
     sendFilter = () => {
         let jsonObj =
             `{
-                "MessageType": "Filter",
-                "Filter": {
-                    "FolderName": "` + this.state.selectedFolder + `",
-                    "Date": "` + this.state.startDate + `",
-                    "Interval": "` + this.state.filterInterval + `",
-                    "Attachment": "` + this.state.attachment + `",
-                    "Seen": "` + this.state.seen + `"
+                "messagetype": "filter",
+                "filter": {
+                    "foldername": "` + this.state.selectedFolder + `",
+                    "date": "` + this.state.startDate + `",
+                    "interval": "` + this.state.filterInterval + `",
+                    "attachment": "` + this.state.attachment + `",
+                    "seen": "` + this.state.seen + `"
                 }
             }`;
-        this.state.ws.send(JSON.stringify(jsonObj));
+        console.log(jsonObj)
+        this.ws.send(JSON.stringify(jsonObj));
     }
 
     render() {

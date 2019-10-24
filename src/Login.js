@@ -10,10 +10,11 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: null, 
+      username: null,
       password: null,
       direct: false,
       return: "",
+      errorMessage: false
     };
   }
   ws = new WebSocket(URL);
@@ -23,6 +24,20 @@ class Login extends Component {
     };
     this.ws.onmessage = evt => {
       console.log("Recieved:", evt.data);
+      var json = JSON.parse(evt.data);
+      if (json.messagetype == "statusupdate") {
+        if (json.message == "connected") {
+          this.setState({
+            direct: true,
+          });
+        }
+        if (json.message == "didnt connect") {
+          this.setState({
+            errorMessage: true
+          });
+        }
+      }
+      
     };
     this.ws.onclose = () => {
       console.log("disconnected");
@@ -44,6 +59,8 @@ class Login extends Component {
     })
   }
 
+    
+
   signup = res => {
 
     let jsonObj = {
@@ -52,12 +69,7 @@ class Login extends Component {
       pass: this.state.password
     }
 
-    //this.ws.send(jsonObj);
     this.ws.send(JSON.stringify(jsonObj));
-
-    this.setState({
-      direct: true, 
-    });
 
     //const { direct, data } = this.state;
     //console.log("Sent:", res.Zi);
@@ -74,17 +86,26 @@ class Login extends Component {
     return (
       <div className="background">
         {direct ? (
-          <Dashboard />
+          <Dashboard 
+            ws={this.ws}
+          />
         ) : (
             <div className="card">
               <span className="logo-login"><img src="LetterLeser.svg" height="50"></img></span>
               <div className="googleLoginBtn">
-              <input className="creds" placeholder="Email Address" onChange={this.handleUsername}></input>
-              <br></br> <br></br>
-              <input type="password" className="creds" placeholder="Password" onChange={this.handlePassword}></input>
-              <br></br>
-              <br></br>
-              <button className="loginBtn" onClick={this.signup}><b>Login</b></button>
+                <input className="creds" placeholder="Email Address" onChange={this.handleUsername}></input>
+                <br></br> <br></br>
+                <input type="password" className="creds" placeholder="Password" onChange={this.handlePassword}></input>
+                <br></br>
+                <br></br>
+                <button className="loginBtn" onClick={this.signup}><b>Login</b></button>
+                {this.state.errorMessage == true ? (
+                  <div className="errorMessage">
+                  <br></br><br></br>
+                  <div>Unable to connect to email.</div>
+                </div>
+                ) : null }
+                
                 {/* <GoogleLogin
                   clientId={config.GOOGLE_CLIENT_ID}
                   buttonText="Login"
