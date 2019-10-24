@@ -176,8 +176,7 @@ class SideNav extends React.Component {
                     "seen": "` + this.state.seen + `"
                 }
             }`;
-        console.log(jsonObj)
-        this.ws.send(JSON.stringify(jsonObj));
+        this.ws.send(jsonObj);
     }
 
     render() {

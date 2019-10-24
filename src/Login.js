@@ -59,8 +59,6 @@ class Login extends Component {
     })
   }
 
-    
-
   signup = res => {
 
     let jsonObj = {
