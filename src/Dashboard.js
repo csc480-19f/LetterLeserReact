@@ -42,20 +42,33 @@ class Dashboard extends React.Component {
     }
 
     handleMessageReceive = (msg) => {
-        var types = msg.DataTypes; 
+        var types = msg.DataTypes;
         if (types.includes("Graphs")) {
             var score = msg.Graphs.SentimentScore;
             this.setState({
                 score: Number(score)
             })
-            //todo: emails by domain
-            //todo: emails by folder
-            //todo: emails sent & received
-            //todo: num of emails
-            //todo: time between replies
+            this.setState({
+                domain: msg.Graphs.EmailsByDomain
+            })
+            this.setState({
+                folder: msg.Graphs.EmailsByFolder
+            })
+            this.setState({
+                sentReceived: msg.Graphs.EmailsSentAndReceived
+            })
+            this.setState({
+                numEmails: msg.Graphs.NumberOfEmails
+            })
+            this.setState({
+                timeReplies: msg.Graphs.TimeBetweenReplies
+            })
         }
         if (types.includes("FavoriteNames")) {
             var favorites = msg.FavoriteNames;
+            this.setState({
+                favoritesList: favorites
+            })
         }
         if (types.includes("FolderNames")) {
             var folders = msg.FolderNames;
@@ -79,8 +92,13 @@ class Dashboard extends React.Component {
         saveFavorite: false,
         showFavoriteData: false,
         selectedFavorite: null,
-        favoritesList: ['Favorite 1', 'Favorite 2'],
-        score: null
+        favoritesList: null,
+        score: null,
+        sentReceived: null,
+        numEmails: null,
+        timeReplies: null,
+        domain: null,
+        folder: null
     };
 
     handleHamburgerClick = () => {
@@ -148,31 +166,36 @@ class Dashboard extends React.Component {
                                 handler={this.handler} /> : null}
                         </div>
                         <div className="sidenav-container">
-                        <div className="sidenav">
-                            <SideNav
-                                webSocket={this.ws}
-                                saveFavorite={this.state.saveFavorite}
-                                onClearFavorite={this.handleHideFavorite}
-                                onSelectFavorite={this.handleShowFavorite}
-                                onAddFavorite={this.handleShowModal}></SideNav>
+                            <div className="sidenav">
+                                <SideNav
+                                    webSocket={this.ws}
+                                    saveFavorite={this.state.saveFavorite}
+                                    onClearFavorite={this.handleHideFavorite}
+                                    onSelectFavorite={this.handleShowFavorite}
+                                    onAddFavorite={this.handleShowModal}></SideNav>
+                            </div>
                         </div>
-                        </div>
-                        
+
                         <div className="dashboardBody">
                             <Sentiment
                                 score={this.state.score}
                             ></Sentiment>
                             <div className="chart-right">
-                                <SentAndReceived></SentAndReceived>
+                                <SentAndReceived
+                                    data={this.state.sentReceived}></SentAndReceived>
                             </div>
                             <br></br>
-                            <EmailsByDomain></EmailsByDomain>
+                            <EmailsByDomain
+                                data={this.state.domain}
+                            ></EmailsByDomain>
                             <div className="chart-right">
-                                <NumberOfEmails></NumberOfEmails>
+                                <NumberOfEmails data={this.state.numEmails}></NumberOfEmails>
                             </div>
-                            <EmailsByFolder></EmailsByFolder>
+                            <EmailsByFolder
+                                data={this.state.folder}
+                            ></EmailsByFolder>
                             <div className="chart-right time">
-                                <TimeBetweenReplies></TimeBetweenReplies>
+                                <TimeBetweenReplies data={this.state.timeReplies}></TimeBetweenReplies>
                             </div>
                         </div>
                     </div>

@@ -23,7 +23,6 @@ class Login extends Component {
     };
     this.ws.onmessage = evt => {
       console.log("Recieved:", evt.data);
-      //   this.addMessage(message);
     };
     this.ws.onclose = () => {
       console.log("disconnected");
