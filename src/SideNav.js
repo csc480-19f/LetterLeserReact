@@ -25,9 +25,12 @@ class SideNav extends React.Component {
 
     ws = null;
 
+    email = null;
+
     constructor(props) {
         super(props);
         this.ws = props.webSocket;
+        this.email = localStorage.getItem("email");
     }
 
     componentWillReceiveProps(props) {
@@ -167,6 +170,7 @@ class SideNav extends React.Component {
     sendFilter = () => {
         let jsonObj =
             `{
+                "email":"` + this.email +`",
                 "messagetype": "filter",
                 "filter": {
                     "foldername": "` + this.state.selectedFolder + `",
