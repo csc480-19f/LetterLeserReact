@@ -4,7 +4,7 @@ import config from "./config.json";
 import Dashboard from './Dashboard';
 import './Login.css';
 
-const URL = "wss://pi.cs.oswego.edu:10120/LetterLeser/engine";
+const URL = "ws://pi.cs.oswego.edu:10120/LetterLeser/engine";
 
 class Login extends Component {
   constructor(props) {
