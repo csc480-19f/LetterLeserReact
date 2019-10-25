@@ -34,10 +34,10 @@ class ContextMenu extends React.Component {
         return (
             <div>
                 <div class="dropdown-content">
-                    <a onClick={this.refresh}>Refresh</a> <hr></hr>
-                    <a>Settings</a> <hr></hr>
-                    <a>Credits</a> <hr></hr>
-                    <a>Logout</a>
+                    <a onClick={this.refresh}><img class="menu-icon" src="Refresh-Dark.svg"></img>Refresh</a> <hr></hr>
+                    <a><img class="menu-icon" src="Settings-Dark.svg"></img>Settings</a> <hr></hr>
+                    <a><img class="menu-icon" src="Credits-Dark.svg"></img>Credits</a> <hr></hr>
+                    <a><img class="menu-icon" src="Logout-Dark.svg"></img>Logout</a>
                     {/* <GoogleLogout
                         clientId = {clientId}
                         buttonText="Logout"

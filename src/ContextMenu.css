@@ -1,8 +1,10 @@
 .dropdown-content {
-    background-color: #275937;
-    color: white;
-    padding: 20px 10px 20px 10px;
-    margin: 4px 8px 0px 0px;
+    background-color: #f2f2f2;
+    color: #2D2D2D;
+    display: flex; 
+    flex-direction: column;
+    padding: 20px 15px 20px 15px;
+    margin: 8px 8px 0px 0px;
     border-radius: 3px;
     width: 140px;
     text-align: center;
@@ -10,11 +12,21 @@
 }
 
 .dropdown-content a {
-    padding-bottom: 0px;
-    font-size: 15px;
+    padding: 10px 0px 5px 0px;
+    font-size: 20px;
+    font-weight: 600;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
 }
 
 .dropdown-content a:hover {
+    color: #498957;
     font-weight: bolder;
+}
+
+.menu-icon {
+    height: 30px;
+    padding: 0px 12px 0px 10px;
 }

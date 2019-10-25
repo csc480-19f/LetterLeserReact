@@ -47,7 +47,7 @@
 .navBars {
     color: white;
     font-size: 30px; 
-    padding-right: 70px;
+    padding-right: 80px;
     padding-top: .4rem;
     float: right; 
  
@@ -72,7 +72,7 @@
 
   .logo {
       float: right;
-      margin-right: 90px;
+      margin-right: 70px;
       margin-top: 5px;
   }
 
