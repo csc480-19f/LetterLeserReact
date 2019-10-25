@@ -39,7 +39,7 @@ class Dashboard extends React.Component {
     }
 
     handleMessageReceive = (msg) => {
-        console.log(msg)
+        console.log(msg.emailbyfolder)
         if (msg.messagetype == 'graphs') {
             var score = msg.sentimentscore.sentimentscore;
             this.setState({
@@ -49,7 +49,7 @@ class Dashboard extends React.Component {
                 domain: msg.emailsbydomain
             })
             this.setState({
-                folder: msg.emailsbyfolder
+                folder: msg.emailbyfolder
             })
             this.setState({
                 sentReceived: msg.emailssentandrecieved

@@ -5,7 +5,7 @@ import sunburst from 'highcharts/modules/sunburst.js';
 sunburst(Highcharts);
 
 var data = [{
-    id: '0.0',
+    id: '0',
     parent: '',
     name: 'Emails',
 }];
@@ -22,7 +22,7 @@ const options = {
     },
     title: {
         text: 'Emails By Folder'
-    }, 
+    },
     series: [{
         type: 'sunburst',
         data: data,
@@ -73,6 +73,72 @@ const options = {
 
 class EmailsByFolder extends React.Component {
 
+    componentWillReceiveProps(props) {
+        this.setState({
+            data: props.data
+        })
+        const chart = this.refs.emailsbyfolder.chart;
+        var data = [];
+        data.push({
+            id: '0',
+            parent: '',
+            name: 'Emails'
+        })
+        for (var i in props.data) {
+            var json = {
+                parent: '0',
+                id: i + 1,
+                name: props.data[i].folderobject,
+                value: props.data[i].contribution
+            }
+            data.push(json);
+        }
+        chart.update({
+            series: [{
+                type: 'sunburst',
+                data: data,
+                allowDrillToNode: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    format: '{point.name}',
+                    filter: {
+                        property: 'innerArcLength',
+                        operator: '>',
+                        value: 16
+                    }
+                },
+                levels: [{
+                    level: 1,
+                    levelIsConstant: false,
+                    dataLabels: {
+                        filter: {
+                            property: 'outerArcLength',
+                            operator: '>',
+                            value: 64
+                        }
+                    }
+                }, {
+                    level: 2,
+                    colorByPoint: true,
+                },
+                {
+                    level: 3,
+                    colorVariation: {
+                        key: 'brightness',
+                        to: 0.25
+                    }
+                }, {
+                    level: 4,
+                    colorVariation: {
+                        key: 'brightness',
+                        to: 0.75
+                    }
+                }]
+
+            }]
+        })
+    }
+
     //render the highcharts component
     render() {
         return (
@@ -80,6 +146,7 @@ class EmailsByFolder extends React.Component {
                 <HighchartsReact
                     highcharts={Highcharts}
                     options={options}
+                    ref="emailsbyfolder"
                 />
             </div>
         );
