@@ -40,7 +40,9 @@ class SideNav extends React.Component {
             folders: props.folders
         });
         if (this.state.newFavoriteName != null && props.saveFavorite != false) {
-            this.handleSaveFavorite(props.saveFavorite);
+            if (this.state.newFavoriteName != props.saveFavorite) {
+                this.handleSaveFavorite(props.saveFavorite);
+            }
         }
     }
 
@@ -152,7 +154,6 @@ class SideNav extends React.Component {
                 "messagetype": "removefavorite",
                 "favoritename":"` + fav + `"
             }`;
-        console.log(jsonObj)
         this.ws.send(jsonObj);
     }
 
