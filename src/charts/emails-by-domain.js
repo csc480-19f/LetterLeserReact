@@ -25,7 +25,7 @@ const options = {
     },
     series: [{
         type: "sunburst",
-        data: data,
+        data: [],
         allowDrillToNode: true,
         cursor: 'pointer',
         dataLabels: {
@@ -73,6 +73,69 @@ const options = {
 
 class EmailsByDomain extends React.Component {
 
+    componentWillReceiveProps(props) {
+        const chart = this.refs.emailsbydomain.chart;
+        var data = [];
+        data.push({
+            id: '0',
+            parent: '',
+            name: 'Emails'
+        })
+        for (var i in props.data.emailbydomain) {
+            var json = {
+                parent: '0',
+                id: i + 1,
+                name: props.data.emailbydomain[i].domainname,
+                value: props.data.emailbydomain[i].contribution
+            }
+            data.push(json);
+        }
+        chart.update({
+            series: [{
+                type: 'sunburst',
+                data: data,
+                allowDrillToNode: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    format: '{point.name}',
+                    filter: {
+                        property: 'innerArcLength',
+                        operator: '>',
+                        value: 16
+                    }
+                },
+                levels: [{
+                    level: 1,
+                    levelIsConstant: false,
+                    dataLabels: {
+                        filter: {
+                            property: 'outerArcLength',
+                            operator: '>',
+                            value: 64
+                        }
+                    }
+                }, {
+                    level: 2,
+                    colorByPoint: true,
+                },
+                {
+                    level: 3,
+                    colorVariation: {
+                        key: 'brightness',
+                        to: 0.25
+                    }
+                }, {
+                    level: 4,
+                    colorVariation: {
+                        key: 'brightness',
+                        to: 0.75
+                    }
+                }]
+
+            }]
+        })
+    }
+
     //render the highcharts component
     render() {
         return (
@@ -80,6 +143,7 @@ class EmailsByDomain extends React.Component {
                 <HighchartsReact
                     highcharts={Highcharts}
                     options={options}
+                    ref="emailsbydomain"
                 />
             </div>
         );

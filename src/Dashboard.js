@@ -39,14 +39,14 @@ class Dashboard extends React.Component {
     }
 
     handleMessageReceive = (msg) => {
-        console.log(msg.emailbyfolder)
+        console.log(msg)
         if (msg.messagetype == 'graphs') {
             var score = msg.sentimentscore.sentimentscore;
             this.setState({
                 score: score
             })
             this.setState({
-                domain: msg.emailsbydomain
+                domain: msg.emailbydomain
             })
             this.setState({
                 folder: msg.emailbyfolder
@@ -61,9 +61,8 @@ class Dashboard extends React.Component {
                 timeReplies: msg.timebetweenreplies
             })
         }
-        if (msg.favoitenames) {
+        if (msg.favoritenames) {
             var favorites = msg.favoritenames;
-            console.log(favorites)
             this.setState({
                 favoritesList: favorites
             })

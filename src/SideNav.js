@@ -150,8 +150,9 @@ class SideNav extends React.Component {
             `{
                 "email":"` + this.email +`",
                 "messagetype": "removefavorite",
-                "favoritefame":` + fav `
+                "favoritename":"` + fav + `"
             }`;
+        console.log(jsonObj)
         this.ws.send(jsonObj);
     }
 
@@ -214,7 +215,10 @@ class SideNav extends React.Component {
                                     onClick={this.deleteFavorite}
                                     id={el}
                                     style={this.state.showDeleteFavorites ? { display: 'inline'} : { display: 'none'}}>
-                                        <FontAwesomeIcon icon={faMinusCircle} />
+                                        <FontAwesomeIcon 
+                                        id={el}
+                                        onClick={this.deleteFavorite}
+                                        icon={faMinusCircle} />
                                         &nbsp; &nbsp;
                                     </span>
                                     <span onClick={this.handleSelectFavorite}>
