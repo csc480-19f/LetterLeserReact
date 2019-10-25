@@ -6,7 +6,7 @@ var categories = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
 const options = {
     chart: {
-        type: 'areaspline',
+        type: 'line',
         height: 230,
         width: 400,
         backgroundColor: 'rgba(0,0,0,0)'
@@ -44,7 +44,15 @@ const options = {
             fillOpacity: 0.5
         }
     },
-    series: [{}]
+    series: [{
+        name: 'Sent Emails',
+        data: [],
+        color: '#275937'
+    }, {
+        name: 'Received Emails',
+        data: [],
+        color: '#F6BC3D'
+    }]
 }
 
 class TimeBetweenReplies extends React.Component {
@@ -54,10 +62,12 @@ class TimeBetweenReplies extends React.Component {
         chart.update({
             series: [{
                 name: 'Sent Emails',
-                data: props.data.SentEmails
+                data: props.data.sentemails,
+                color: '#275937'
             }, {
                 name: 'Received Emails',
-                data: props.data.RecievedEmails
+                data: props.data.recievedemails,
+                color: '#F6BC3D'
             }]
         })
     }

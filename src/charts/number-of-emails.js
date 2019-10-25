@@ -24,8 +24,12 @@ const options = {
         text: 'Number of Emails'
     },
 
+    xAxis: {
+        categories: categories
+    },
+
     yAxis: {
-        categories: categories,
+        categories: ['12AM-3:59AM', '4AM-7:59AM', '8AM-11:59AM', '12PM-3:59PM', '4PM-7:59PM', '8PM-11:59PM'],
         title: null
     },
 
@@ -60,11 +64,21 @@ class NumberOfEmails extends React.Component {
 
     componentWillReceiveProps(props) {
         const chart = this.refs.heatmapChart.chart;
+        var data = [];
+        for (var i in props.data) {
+            for (var j in props.data[i]) {
+                var arr = [];
+                arr.push(Number(i));
+                arr.push(Number(j));
+                arr.push(props.data[i][j]);
+                data.push(arr);
+            }
+        }
         chart.update({
             series: [{
                 name: 'Number of Emails',
                 borderWidth: 1,
-                data: props.data.NumberOfEmails,
+                data: data,
                 dataLabels: {
                     enabled: true,
                     color: '#000000'

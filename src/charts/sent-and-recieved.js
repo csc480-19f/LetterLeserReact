@@ -77,14 +77,14 @@ class SentAndReceived extends React.Component {
         })
         const chart = this.refs.sentAndReceivedChart.chart;
         var received = [];
-        for (var i in props.data.RecievedEmails) {
-            received.push(-1 * i);
+        for (var i in props.data.recievedemails) {
+            received.push(-1 * props.data.recievedemails[i]);
         }
         chart.update({
             series: [{
                 name: 'Sent',
                 color: '#275937',
-                data: props.data.SentEmails
+                data: props.data.sentemails
             }, {
                 name: 'Received',
                 color: '#F6BC3D',

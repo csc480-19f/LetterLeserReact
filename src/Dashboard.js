@@ -39,29 +39,31 @@ class Dashboard extends React.Component {
     }
 
     handleMessageReceive = (msg) => {
-        if (msg.graphs) {
-            var score = msg.graphs.sentimentscore;
+        console.log(msg)
+        if (msg.messagetype == 'graphs') {
+            var score = msg.sentimentscore.sentimentscore;
             this.setState({
-                score: Number(score)
+                score: score
             })
             this.setState({
-                domain: msg.graphs.emailsbydomain
+                domain: msg.emailsbydomain
             })
             this.setState({
-                folder: msg.Graphs.emailsbyfolder
+                folder: msg.emailsbyfolder
             })
             this.setState({
-                sentReceived: msg.graphs.emailssentandreceived
+                sentReceived: msg.emailssentandrecieved
             })
             this.setState({
-                numEmails: msg.graphs.numberofemails
+                numEmails: msg.numberofemails
             })
             this.setState({
-                timeReplies: msg.graphs.timebetweenreplies
+                timeReplies: msg.timebetweenreplies
             })
         }
         if (msg.favoitenames) {
-            var favorites = msg.FavoriteNames;
+            var favorites = msg.favoritenames;
+            console.log(favorites)
             this.setState({
                 favoritesList: favorites
             })

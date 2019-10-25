@@ -67,12 +67,14 @@ class SideNav extends React.Component {
             selectedFavorite: event.target.innerText
         })
         var jsonObj = `
-        { "messagetype":"callfavorite",
+        { 
+            "email":"` + this.email +`",
+            "messagetype":"callfavorite",
 	        "favoritename": "` + event.target.innerText + `" 
         }`;
         var favObj = [event.target.innerText];
         this.props.onSelectFavorite(favObj);
-        this.ws.send(JSON.stringify(jsonObj));
+        this.ws.send(jsonObj);
     }
 
     handleAddFavorite = () => {
@@ -82,20 +84,22 @@ class SideNav extends React.Component {
     handleSaveFavorite = (favoriteName) => {
         //todo: attachment boolean? flagged email?
         var jsonObj = `
-        { "MessageType":"AddFavorites",
-	        "FavoriteName": "` + favoriteName + `" ,
-	        "Filter": {
-		        "FolderName": "` + this.state.selectedFolder + `",
-		        "Date": "` + this.state.startDate + `",
-		        "Interval": "` + this.state.filterInterval + `",
-		        "Attachment":"` + this.state.attachment + `",
-                "Seen":"` + this.state.seen + `"
+        {"email":"` + this.email +`",
+        "messagetype":"addfavorite",
+	        "favoritename": "` + favoriteName + `" ,
+	        "filter": {
+		        "foldername": "` + this.state.selectedFolder + `",
+		        "date": "` + this.state.startDate + `",
+		        "interval": "` + this.state.filterInterval + `",
+		        "attachment":"` + this.state.attachment + `",
+                "seen":"` + this.state.seen + `"
             }
         }`;
         this.setState({
             newFavoriteName: null
         })
-        this.ws.send(JSON.stringify(jsonObj));
+        console.log(jsonObj)
+        this.ws.send(jsonObj);
     }
 
     handleToggleFolders = () => {
@@ -144,10 +148,11 @@ class SideNav extends React.Component {
         var fav = event.target.parentElement.id;
         let jsonObj =
             `{
-                "MessageType": "RemoveFavorite",
-                "FavoriteName":` + fav `
+                "email":"` + this.email +`",
+                "messagetype": "removefavorite",
+                "favoritefame":` + fav `
             }`;
-        this.ws.send(JSON.stringify(jsonObj));
+        this.ws.send(jsonObj);
     }
 
     clearFilter = () => {
