@@ -248,7 +248,7 @@ class SideNav extends React.Component {
                 </a>
                 <div className="sidenav-contents">
                 <div class="filter-title">Start Date:</div>
-                    <DatePicker
+                    <DatePicker className="selector"
                         selected={this.state.startDate}
                         onChange={this.handleStartChange}
                     />
@@ -298,7 +298,7 @@ class SideNav extends React.Component {
                     </div>
                     <div>
                         <br></br>
-                        <button className="intervalBtn" onClick={this.sendFilter}>
+                        <button className="intervalBtn-Apply" onClick={this.sendFilter}>
                             Apply Filters
                         </button>
                         <button className="intervalBtn-Favorite" onClick={this.handleAddFavorite}>

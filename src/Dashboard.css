@@ -3,8 +3,8 @@
 .topnav {
     background-color: #292929;
     overflow: hidden;
-    padding-top: .1rem; 
-    padding-bottom: .1rem; 
+    padding-top: 1px; 
+    padding-bottom: 1px; 
     box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
     z-index: 2;
     position: sticky;
@@ -14,7 +14,7 @@
 
 .sidenav-container {
     overflow: hidden;
-    max-height:95vh;
+    max-height: 95vh;
 }
 
 .sidenav {
@@ -27,6 +27,7 @@
     overflow-x: hidden;
     height: 90%;
     z-index: 1;
+    border-right: 2px solid #2d2d2d;
   }
 
 .contextMenu {
@@ -47,7 +48,7 @@
 .navBars {
     color: white;
     font-size: 30px; 
-    padding-right: 80px;
+    padding-right: 75px;
     padding-top: .4rem;
     float: right; 
  

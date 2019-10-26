@@ -39,6 +39,8 @@
     width: 85%;
     padding: 10px;
     margin-top: 0px;
+    border-radius: 3px;
+    border: 1px solid #acacac;
 }
 
 .logo-login{

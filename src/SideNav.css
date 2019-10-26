@@ -19,8 +19,10 @@
     border: none;
     border-radius: 4px;
     background-color: white;
-    color: black;
+    color: #2d2d2d;
+    font-weight: bolder;
     font-size: 13px;
+    width: 4rem;
     padding: 5px 10px 5px 10px;
     margin-right: 5px;
     cursor: pointer;
@@ -34,7 +36,8 @@
   border: none;
   border-radius: 4px;
   background-color: white;
-  color: black;
+  color: #2d2d2d;
+  font-weight: bolder;
   font-size: 13px;
   padding: 5px 10px 5px 10px;
   margin-right: 5px;
@@ -42,13 +45,30 @@
   opacity: .3;
 }
 
-.btnsGroup {
-    margin-top: 2px;
-}
-
 .intervalBtn-Favorite:hover {
   background-color: rgb(248, 206, 116);
   opacity: 1;
+}
+
+.intervalBtn-Apply {
+  border: none;
+  border-radius: 4px;
+  background-color: white;
+  color: #2d2d2d;
+  font-weight: bolder;
+  font-size: 13px;
+  padding: 5px 10px 5px 10px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.intervalBtn-Apply:hover {
+  background-color: rgb(248, 206, 116);
+  opacity: 1;
+}
+
+.btnsGroup {
+  margin-top: 2px;
 }
 
 .containsGroup {
@@ -189,7 +209,8 @@
     border: none;
     border-radius: 4px;
     background-color: white;
-    color: black;
+    color: #2d2d2d;
+    font-weight: bolder;
     opacity: .3;
     font-size: 13px;
     padding: 5px 10px 5px 10px;
@@ -213,3 +234,11 @@
   padding: 25px 0px 3px 0px;
 }
 
+.selector {
+  width: 195px;
+  padding: 8px 0px 8px 5px;
+  border-radius: 2px;
+  border: 0px solid white;
+  font-weight: bolder;
+  color: #2d2d2d
+}
