@@ -43,20 +43,17 @@
     border: 1px solid #acacac;
 }
 
-.logo-login{
-<<<<<<< HEAD
+/* .logo-login{
     margin-left: 25%;
-}
+} */
 
 .errorMessage {
     color: red;
     font-weight: bolder;
-=======
     display: block;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 50px;
     width: 85%;
     text-align: center;
->>>>>>> Visual-Updates
 }
