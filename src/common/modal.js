@@ -67,7 +67,7 @@ class Modal extends React.Component {
                     <input onChange={this.handleInputChange} value={this.state.input}></input>
                     <br></br><br></br>
                     <button className="btn" onClick={this.handleSave}>Save</button>
-                    <button className="btn" onClick={this.handleClose}>Cancel</button>
+                    <button className="btn-close" onClick={this.handleClose}>Cancel</button>
                     <br></br>
                     <span 
                     className="errorMsg"

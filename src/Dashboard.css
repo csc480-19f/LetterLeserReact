@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Courgette');
 
 .topnav {
-    background-color: #2d2d2d;
+    background-color: #292929;
     overflow: hidden;
-    padding-top: .1rem; 
-    padding-bottom: .1rem; 
+    padding-top: 1px; 
+    padding-bottom: 1px; 
     box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
     z-index: 2;
     position: sticky;
@@ -14,19 +14,20 @@
 
 .sidenav-container {
     overflow: hidden;
-    max-height:95vh;
+    max-height: 95vh;
 }
 
 .sidenav {
-    width: 285px;
+    width: 300px;
     position: fixed;
     left: 0;
     right: 0;
-    background-color: #2d2d2d;
+    background-color: #292929;
     overflow-y: scroll !important;
     overflow-x: hidden;
     height: 90%;
     z-index: 1;
+    border-right: 2px solid #2d2d2d;
   }
 
 .contextMenu {
@@ -47,24 +48,22 @@
 .navBars {
     color: white;
     font-size: 30px; 
-    padding-right: 40px;
+    padding-right: 75px;
     padding-top: .4rem;
     float: right; 
  
     cursor: pointer;
 }
   .dashboardBody {
-      margin-left: 350px;
+      margin-left: 25%;
   }
 
   .favorite {
-      margin-left: 35px;
       padding-left: 100px;
-      padding-bottom: 15px;
   }
   
   .chart-right {
-      margin-left: 550px;
+      margin-left: 45%;
       margin-top: -200px;
   }
 
@@ -74,22 +73,22 @@
 
   .logo {
       float: right;
-      margin-right: 75px;
+      margin-right: 70px;
       margin-top: 5px;
   }
 
   .logo-letter {
     float: left;
-    margin-left: 20px;
+    margin-left: 10px;
     margin-top: 10px;
 }
 
   .favicon {
-      font-size: 20px;
+      font-size: 14px;
       color: #F8CE74;
   }
 
   .favText {
-      font-size: 20px;
+      font-size: 16px;
       color: white;
   }

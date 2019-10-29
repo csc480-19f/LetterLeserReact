@@ -1,5 +1,5 @@
 .sidenav a {
-    padding: 6px 8px 6px 16px;
+    padding: 6px 8px 6px 20px;
     text-decoration: none;
     font-size: 15px;
     background-color: #275937;
@@ -9,7 +9,7 @@
   }
 
   .sidenav-contents {
-    margin-top: 30px; 
+    margin-top: 0px; 
     margin-left: 35px;
     color: white;
     font-size: 15px;
@@ -19,9 +19,10 @@
     border: none;
     border-radius: 4px;
     background-color: white;
-    color: black;
+    color: #2d2d2d;
+    font-weight: bolder;
     font-size: 13px;
-    padding: 10px;
+    width: 4rem;
     padding: 5px 10px 5px 10px;
     margin-right: 5px;
     cursor: pointer;
@@ -31,13 +32,48 @@
     background-color: rgb(248, 206, 116);
 }
 
+.intervalBtn-Favorite {
+  border: none;
+  border-radius: 4px;
+  background-color: white;
+  color: #2d2d2d;
+  font-weight: bolder;
+  font-size: 13px;
+  padding: 5px 10px 5px 10px;
+  margin-right: 5px;
+  cursor: pointer;
+  opacity: .3;
+}
+
+.intervalBtn-Favorite:hover {
+  background-color: rgb(248, 206, 116);
+  opacity: 1;
+}
+
+.intervalBtn-Apply {
+  border: none;
+  border-radius: 4px;
+  background-color: white;
+  color: #2d2d2d;
+  font-weight: bolder;
+  font-size: 13px;
+  padding: 5px 10px 5px 10px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.intervalBtn-Apply:hover {
+  background-color: rgb(248, 206, 116);
+  opacity: 1;
+}
+
 .btnsGroup {
-    margin-top: 10px;
+  margin-top: 2px;
 }
 
 .containsGroup {
-    margin-left: 15px;
-    font-size: 13px;
+    margin-left: 0px;
+    font-size: 10px;
     margin-top: 5px;
 }
 
@@ -47,7 +83,7 @@
     position: relative;
     padding-left: 25px;
     cursor: pointer;
-    font-size: 13px;
+    font-size: 14px;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -70,6 +106,7 @@
     left: 0;
     height: 15px;
     width: 15px;
+    margin-top: 2px;
     background-color: #eee;
   }
   
@@ -97,10 +134,10 @@
   
   /* Style the checkmark/indicator */
   .container .checkmark:after {
-    left: 4px;
-    top: 0px;
+    left: 5px;
+    top: 1px;
     width: 3px;
-    height: 10px;
+    height: 8px;
     border: solid white;
     border-width: 0 3px 3px 0;
     -webkit-transform: rotate(45deg);
@@ -112,10 +149,11 @@
     border: solid white;
     border-width: 0 2px 2px 0;
     padding: 3px;
+    margin-top: 5px;
+    margin-right: 8px;
     transform: rotate(45deg);
     -webkit-transform: rotate(45deg);
     float: right;
-    margin-top: 6px;
   }
 
   .caret-up {
@@ -123,7 +161,8 @@
     border-width: 0 2px 2px 0;
     padding: 3px;
     float: right;
-    margin-top: 10px;
+    margin-top: 9px;
+    margin-right: 8px;
     transform: rotate(-135deg);
     -webkit-transform: rotate(-135deg);
   }
@@ -135,7 +174,7 @@
   .clearMsg {
     float: right;
     margin-top: 4px;
-    margin-right: 5px;
+    margin-right: 8px;
     font-size: 10px;
     text-decoration: underline;
   }
@@ -150,9 +189,13 @@
 
   .sidenav-lists {
     list-style-type: none;
-    padding: 20px 0px 20px 40px;
+    padding: 5px 0px 5px 40px;
     color: white;
-}
+  }
+
+  .sidenav-lists li{
+    margin: 5px 0;
+  } 
 
   .item {
     cursor: pointer;
@@ -166,7 +209,9 @@
     border: none;
     border-radius: 4px;
     background-color: white;
-    color: black;
+    color: #2d2d2d;
+    font-weight: bolder;
+    opacity: .3;
     font-size: 13px;
     padding: 5px 10px 5px 10px;
     margin-right: 5px;
@@ -177,8 +222,23 @@
 
 .editBtn:hover {
     background-color: rgb(248, 206, 116);
+    opacity: 1;
 }
 
 .deleteIcon {
   color: red;
+  opacity: .5;
+}
+
+.filter-title {
+  padding: 25px 0px 3px 0px;
+}
+
+.selector {
+  width: 195px;
+  padding: 8px 0px 8px 5px;
+  border-radius: 2px;
+  border: 0px solid white;
+  font-weight: bolder;
+  color: #2d2d2d
 }

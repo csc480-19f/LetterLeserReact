@@ -91,7 +91,7 @@ class Login extends Component {
           />
         ) : (
             <div className="card">
-              <span className="logo-login"><img src="LetterLeser.svg" height="50"></img></span>
+              <span className="logo-login"><img src="LetterLeser-Green.svg" ></img></span>
               <div className="googleLoginBtn">
                 <input className="creds" placeholder="Email Address" onChange={this.handleUsername}></input>
                 <br></br> <br></br>
