@@ -4,21 +4,21 @@ import './ContextMenu.css';
 
 class ContextMenu extends React.Component {
 
+    ws = null;
+
     state = {
         logout: false,
-        ws: null
     };
 
-    componentWillReceiveProps(props) {
-        this.setState({
-            ws: props.webSocket
-        });
+    constructor(props) {
+        super(props);
+        this.ws = props.webSocket;
     }
 
     refresh = () => {
         var jsonObj = `
-        { "MessageType":"Refresh"}`;
-        this.state.ws.send(JSON.stringify(jsonObj));
+        { "messagetype":"refresh"}`;
+        this.ws.send(JSON.stringify(jsonObj));
     }
 
     logout = () => {
@@ -35,9 +35,9 @@ class ContextMenu extends React.Component {
             <div>
                 <div class="dropdown-content">
                     <a onClick={this.refresh}><img class="menu-icon" src="Refresh-Dark.svg"></img>Refresh</a> <hr></hr>
-                    <a><img class="menu-icon" src="Settings-Dark.svg"></img>Settings</a> <hr></hr>
+                    {/* <a><img class="menu-icon" src="Settings-Dark.svg"></img>Settings</a> <hr></hr> */}
                     <a><img class="menu-icon" src="Credits-Dark.svg"></img>Credits</a> <hr></hr>
-                    <a><img class="menu-icon" src="Logout-Dark.svg"></img>Logout</a>
+                    <a onClick={this.logout}><img class="menu-icon" src="Logout-Dark.svg"></img>Logout</a>
                     {/* <GoogleLogout
                         clientId = {clientId}
                         buttonText="Logout"

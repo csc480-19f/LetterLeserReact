@@ -95,7 +95,6 @@ class Dashboard extends React.Component {
     }
 
     handler(state) {
-        alert("handler: " + state)
         this.setState({
             logout: state
         })
