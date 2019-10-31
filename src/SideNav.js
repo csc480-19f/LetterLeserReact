@@ -70,7 +70,7 @@ class SideNav extends React.Component {
         })
         var jsonObj = `
         { 
-            "email":"` + this.email +`",
+            "email":"` + this.email + `",
             "messagetype":"callfavorite",
 	        "favoritename": "` + event.target.innerText + `" 
         }`;
@@ -86,7 +86,7 @@ class SideNav extends React.Component {
     handleSaveFavorite = (favoriteName) => {
         //todo: attachment boolean? flagged email?
         var jsonObj = `
-        {"email":"` + this.email +`",
+        {"email":"` + this.email + `",
         "messagetype":"addfavorite",
 	        "favoritename": "` + favoriteName + `" ,
 	        "filter": {
@@ -150,7 +150,7 @@ class SideNav extends React.Component {
         var fav = event.target.parentElement.id;
         let jsonObj =
             `{
-                "email":"` + this.email +`",
+                "email":"` + this.email + `",
                 "messagetype": "removefavorite",
                 "favoritename":"` + fav + `"
             }`;
@@ -175,19 +175,32 @@ class SideNav extends React.Component {
     }
 
     sendFilter = () => {
-        let jsonObj =
-            `{
-                "email":"` + this.email +`",
-                "messagetype": "filter",
-                "filter": {
-                    "foldername": "` + this.state.selectedFolder + `",
-                    "date": "` + this.state.startDate + `",
-                    "interval": "` + this.state.filterInterval + `",
-                    "attachment": "` + this.state.attachment + `",
-                    "seen": "` + this.state.seen + `"
-                }
-            }`;
-        this.ws.send(jsonObj);
+        if (this.state.selectedFolder != null) {
+            if (this.state.filterInterval != null) {
+                let month = this.state.startDate.getMonth();
+                let day = this.state.startDate.getDate() + 1;
+                let year = this.state.startDate.getFullYear();
+                let dateString = month + "/" + day + "/" + year + " 23:59";
+                alert(dateString)
+                let jsonObj =
+                    `{
+                    "email":"` + this.email + `",
+                    "messagetype": "filter",
+                    "filter": {
+                        "foldername": "` + this.state.selectedFolder + `",
+                        "date": "` + dateString + `",
+                        "interval": "` + this.state.filterInterval + `",
+                        "attachment": "` + this.state.attachment + `",
+                        "seen": "` + this.state.seen + `"
+                    }
+                }`;
+                this.ws.send(jsonObj);
+            } else {
+                alert("Please select an interval value.")
+            }
+        } else {
+            alert("Please select a folder to analyze.")
+        }
     }
 
     render() {
@@ -212,14 +225,14 @@ class SideNav extends React.Component {
                                 <li value={el}
                                     className="item"
                                     style={el === this.state.selectedFavorite ? { color: '#f8ce74' } : { color: 'white' }}>
-                                    <span className="deleteIcon" 
-                                    onClick={this.deleteFavorite}
-                                    id={el}
-                                    style={this.state.showDeleteFavorites ? { display: 'inline'} : { display: 'none'}}>
-                                        <FontAwesomeIcon 
-                                        id={el}
+                                    <span className="deleteIcon"
                                         onClick={this.deleteFavorite}
-                                        icon={faMinusCircle} />
+                                        id={el}
+                                        style={this.state.showDeleteFavorites ? { display: 'inline' } : { display: 'none' }}>
+                                        <FontAwesomeIcon
+                                            id={el}
+                                            onClick={this.deleteFavorite}
+                                            icon={faMinusCircle} />
                                         &nbsp; &nbsp;
                                     </span>
                                     <span onClick={this.handleSelectFavorite}>
@@ -229,14 +242,14 @@ class SideNav extends React.Component {
                             )
                         }
                     </ul>
-                    <button 
-                    style={ !this.state.showDeleteFavorites ? { display: 'inline'} : {display: 'none'} }
-                    className="editBtn" onClick={this.handleEditFavorites}>
+                    <button
+                        style={!this.state.showDeleteFavorites ? { display: 'inline' } : { display: 'none' }}
+                        className="editBtn" onClick={this.handleEditFavorites}>
                         Edit Favorites
                     </button>
-                    <button 
-                    style={ this.state.showDeleteFavorites ? { display: 'inline'} : {display: 'none'}}
-                    className="editBtn" onClick={this.doneEditingFavorites}>
+                    <button
+                        style={this.state.showDeleteFavorites ? { display: 'inline' } : { display: 'none' }}
+                        className="editBtn" onClick={this.doneEditingFavorites}>
                         Done
                     </button>
                 </div>
@@ -264,7 +277,7 @@ class SideNav extends React.Component {
                         <span className="clearMsg" onClick={this.clearFilter}>Clear Filter</span>
                 </a>
                 <div className="sidenav-contents">
-                <div class="filter-title">Start Date:</div>
+                    <div class="filter-title">Start Date:</div>
                     <DatePicker className="selector"
                         selected={this.state.startDate}
                         onChange={this.handleStartChange}
