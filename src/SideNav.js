@@ -177,8 +177,8 @@ class SideNav extends React.Component {
     sendFilter = () => {
         if (this.state.selectedFolder != null) {
             if (this.state.filterInterval != null) {
-                let month = this.state.startDate.getMonth();
-                let day = this.state.startDate.getDate() + 1;
+                let month = this.state.startDate.getMonth() + 1;
+                let day = this.state.startDate.getDate();
                 let year = this.state.startDate.getFullYear();
                 let dateString = month + "/" + day + "/" + year + " 23:59";
                 alert(dateString)
