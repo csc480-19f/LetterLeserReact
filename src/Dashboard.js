@@ -14,6 +14,8 @@ import EmailsByFolder from './charts/emails-by-folder';
 import NumberOfEmails from './charts/number-of-emails';
 import TimeBetweenReplies from './charts/time-between-replies';
 
+const URL = "ws://localhost:10120/LetterLeser/engine";
+
 
 class Dashboard extends React.Component {
 
@@ -42,7 +44,7 @@ class Dashboard extends React.Component {
         console.log(msg)
         if (msg.messagetype == 'statusupdate') {
             this.setState({
-                status: msg.statusupdate
+                status: msg.message
             })
         }
         if (msg.messagetype == 'logininfo') {
@@ -179,7 +181,7 @@ class Dashboard extends React.Component {
                             </span>
                             <span className="logo"><img src="Oswego Logo.svg" height="40"></img></span>
                             <span className="status">
-                                {this.state.status}
+                                <i>{this.state.status}</i>
                             </span>
                             {this.state.status != null ?
                                 <span className="loader"></span> : null

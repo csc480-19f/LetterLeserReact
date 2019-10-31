@@ -14,7 +14,8 @@ class Login extends Component {
       password: null,
       direct: false,
       return: "",
-      errorMessage: false
+      errorMessage: false,
+      statusMessage: null
     };
   }
   ws = new WebSocket(URL);
@@ -26,14 +27,21 @@ class Login extends Component {
       console.log("Recieved:", evt.data);
       var json = JSON.parse(evt.data);
       if (json.messagetype == "statusupdate") {
+        if (json.message == "establising connection") {
+          this.setState({
+            statusMessage: "Connecting..."
+          })
+        }
         if (json.message == "established connection") {
           this.setState({
             direct: true,
+            statusMessage: null
           });
         }
         if (json.message == "invalid credentials") {
           this.setState({
-            errorMessage: true
+            errorMessage: true,
+            statusMessage: null
           });
         }
       }
@@ -99,6 +107,16 @@ class Login extends Component {
                 <br></br>
                 <br></br>
                 <button className="loginBtn" onClick={this.signup}><b>Login</b></button>
+                {this.state.statusMessage != null ? 
+                <div className="statusContainer">
+                  <br></br>
+                  <span className = "loaderLogin"></span>
+                  <span className="statusMsg"> 
+                    {this.state.statusMessage}
+                  </span> 
+                </div>
+                : null
+                }
                 {this.state.errorMessage == true ? (
                   <div className="errorMessage">
                   <br></br><br></br>
