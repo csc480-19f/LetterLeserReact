@@ -85,13 +85,17 @@ class SideNav extends React.Component {
 
     handleSaveFavorite = (favoriteName) => {
         //todo: attachment boolean? flagged email?
+        let month = this.state.startDate.getMonth() + 1;
+        let day = this.state.startDate.getDate();
+        let year = this.state.startDate.getFullYear();
+        let dateString = month + "/" + day + "/" + year + " 23:59";
         var jsonObj = `
         {"email":"` + this.email + `",
         "messagetype":"addfavorite",
 	        "favoritename": "` + favoriteName + `" ,
 	        "filter": {
 		        "foldername": "` + this.state.selectedFolder + `",
-		        "date": "` + this.state.startDate + `",
+		        "date": "` + dateString + `",
 		        "interval": "` + this.state.filterInterval + `",
 		        "attachment":"` + this.state.attachment + `",
                 "seen":"` + this.state.seen + `"
