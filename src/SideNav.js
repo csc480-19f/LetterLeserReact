@@ -181,7 +181,6 @@ class SideNav extends React.Component {
                 let day = this.state.startDate.getDate();
                 let year = this.state.startDate.getFullYear();
                 let dateString = month + "/" + day + "/" + year + " 23:59";
-                alert(dateString)
                 let jsonObj =
                     `{
                     "email":"` + this.email + `",
