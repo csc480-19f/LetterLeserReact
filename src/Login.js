@@ -26,12 +26,12 @@ class Login extends Component {
       console.log("Recieved:", evt.data);
       var json = JSON.parse(evt.data);
       if (json.messagetype == "statusupdate") {
-        if (json.message == "connected") {
+        if (json.message == "established connection") {
           this.setState({
             direct: true,
           });
         }
-        if (json.message == "didnt connect") {
+        if (json.message == "invalid credentials") {
           this.setState({
             errorMessage: true
           });

@@ -61,6 +61,13 @@
   .favorite {
       padding-left: 100px;
   }
+
+  .status {
+      float: right;
+      color: white;
+      padding-right: 200px;
+      padding-top: 15px;
+  }
   
   .chart-right {
       margin-left: 45%;
@@ -91,4 +98,30 @@
   .favText {
       font-size: 16px;
       color: white;
+  }
+
+  .loader {
+    float: right;
+    margin-right: 5px;
+    margin-top: 10px;
+    border: 5px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 5px solid #F8CE74;
+    border-bottom: 5px solid #F8CE74;
+    border-left: 5px solid #498957;
+    border-right: 5px solid #498957;
+    width: 15px;
+    height: 15px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+  }
+  
+  @-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }

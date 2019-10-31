@@ -40,7 +40,20 @@ class Dashboard extends React.Component {
 
     handleMessageReceive = (msg) => {
         console.log(msg)
+        if (msg.messagetype == 'statusupdate') {
+            this.setState({
+                status: msg.statusupdate
+            })
+        }
+        if (msg.messagetype == 'logininfo') {
+            this.setState({
+                status: null
+            })
+        }
         if (msg.messagetype == 'graphs') {
+            this.setState({
+                status: null
+            })
             var score = msg.sentimentscore.sentimentscore;
             this.setState({
                 score: score
@@ -61,24 +74,28 @@ class Dashboard extends React.Component {
                 timeReplies: msg.timebetweenreplies
             })
         }
-        if (msg.favoritenames) {
-            var favorites = msg.favoritenames;
+        if (msg.favoritename) {
+            this.setState({
+                status: null
+            })
+            var favorites = msg.favoritename;
             this.setState({
                 favoritesList: favorites
             })
         }
         if (msg.foldername) {
+            this.setState({
+                status: null
+            })
             var folders = msg.foldername;
             this.setState({
                 foldersList: folders
             })
         }
-        if (msg.message) {
-            //todo
-        }
     }
 
     handler(state) {
+        alert("handler: " + state)
         this.setState({
             logout: state
         })
@@ -99,14 +116,16 @@ class Dashboard extends React.Component {
         numEmails: [],
         timeReplies: [],
         domain: [],
-        folder: []
+        folder: [],
+        status: null
     };
 
     handleHamburgerClick = () => {
         this.setState({
-            showContextMenu: !this.state.showContextMenu
-        })
-    };
+            showContextMenu: !this.state.showContextMenu,
+            showModal: false
+        });
+    }
 
     handleShowModal = (boolean) => {
         this.setState({
@@ -160,6 +179,12 @@ class Dashboard extends React.Component {
                                 <FontAwesomeIcon icon={faBars} />
                             </span>
                             <span className="logo"><img src="Oswego Logo.svg" height="40"></img></span>
+                            <span className="status">
+                                {this.state.status}
+                            </span>
+                            {this.state.status != null ?
+                                <span className="loader"></span> : null
+                            }
                         </div>
                         <div className="contextMenu">
                             {this.state.showContextMenu ? <ContextMenu
