@@ -3,6 +3,7 @@ import { GoogleLogin } from "react-google-login";
 import config from "./config.json";
 import Dashboard from './Dashboard';
 import './Login.css';
+import { sign } from "crypto";
 
 const URL = "ws://localhost:10120/LetterLeser/engine";
 
@@ -67,7 +68,14 @@ class Login extends Component {
     })
   }
 
-  signup = res => {
+  enterPressed(event) {
+    var code = event.keyCode || event.which;
+    if (code === 13) { //13 is the enter keycode
+      this.signup();
+    } 
+}
+
+  signup = () => {
 
     let jsonObj = {
       messagetype: "login",
@@ -103,7 +111,7 @@ class Login extends Component {
               <div className="googleLoginBtn">
                 <input className="creds" placeholder="Email Address" onChange={this.handleUsername}></input>
                 <br></br> <br></br>
-                <input type="password" className="creds" placeholder="Password" onChange={this.handlePassword}></input>
+                <input type="password" className="creds" placeholder="Password" onChange={this.handlePassword} onKeyPress={this.enterPressed.bind(this)}></input>
                 <br></br>
                 <br></br>
                 <button className="loginBtn" onClick={this.signup}><b>Login</b></button>

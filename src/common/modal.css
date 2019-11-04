@@ -27,7 +27,11 @@
     cursor: pointer;
 }
 
-  .btn:hover{
+  .btn:hover {
+    background-color: rgb(248, 206, 116);
+  }
+
+  .btn-close:hover {
     background-color: rgb(248, 206, 116);
   }
   
@@ -41,7 +45,6 @@
   padding: 8px;
   cursor: pointer;
   width: 30%;
-  opacity: .3;
 }
 
 .errorMsg {

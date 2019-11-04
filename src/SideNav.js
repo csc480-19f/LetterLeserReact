@@ -197,6 +197,7 @@ class SideNav extends React.Component {
                         "seen": "` + this.state.seen + `"
                     }
                 }`;
+                console.log(jsonObj)
                 this.ws.send(jsonObj);
             } else {
                 alert("Please select an interval value.")
@@ -245,11 +246,12 @@ class SideNav extends React.Component {
                             )
                         }
                     </ul>
+                    {this.state.favorites.length != 0 ? 
                     <button
                         style={!this.state.showDeleteFavorites ? { display: 'inline' } : { display: 'none' }}
                         className="editBtn" onClick={this.handleEditFavorites}>
                         Edit Favorites
-                    </button>
+                    </button> : null}
                     <button
                         style={this.state.showDeleteFavorites ? { display: 'inline' } : { display: 'none' }}
                         className="editBtn" onClick={this.doneEditingFavorites}>
