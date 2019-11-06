@@ -89,7 +89,7 @@ class SideNav extends React.Component {
                 let month = this.state.startDate.getMonth() + 1;
                 let day = this.state.startDate.getDate();
                 let year = this.state.startDate.getFullYear();
-                let dateString = month + "/" + day + "/" + year + " 23:59";
+                let dateString = year + "/" + month + "/" + day + " 00:00:00";
                 var jsonObj = `
                     {"email":"` + this.email + `",
                     "messagetype":"addfavorite",
@@ -191,7 +191,7 @@ class SideNav extends React.Component {
                 let month = this.state.startDate.getMonth() + 1;
                 let day = this.state.startDate.getDate();
                 let year = this.state.startDate.getFullYear();
-                let dateString = month + "/" + day + "/" + year + " 23:59";
+                let dateString = year + "/" + month + "/" + day + " 00:00:00";
                 let jsonObj =
                     `{
                     "email":"` + this.email + `",
