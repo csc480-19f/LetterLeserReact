@@ -25,6 +25,10 @@ class Dashboard extends React.Component {
         super(props)
         this.handler = this.handler.bind(this)
         this.ws = props.ws;
+        this.setState({
+            foldersList: props.folders,
+            favoritesList: props.favorites
+        })
     }
 
     componentDidMount() {

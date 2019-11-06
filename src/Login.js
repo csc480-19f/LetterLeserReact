@@ -6,6 +6,8 @@ import './Login.css';
 import { sign } from "crypto";
 
 const URL = "ws://localhost:10120/LetterLeser/engine";
+var favorites = [];
+var folders = [];
 
 class Login extends Component {
   constructor(props) {
@@ -77,6 +79,8 @@ class Login extends Component {
     } else if (json.favoritename == null) {
       return false;
     } else {
+      this.folders = json.foldername;
+      this.favorites = json.favoritename;
       return true;
     }
   }
@@ -129,6 +133,8 @@ class Login extends Component {
         {direct ? (
           <Dashboard 
             ws={this.ws}
+            favorites={this.favorites}
+            folders={this.folders}
           />
         ) : (
             <div className="card">
