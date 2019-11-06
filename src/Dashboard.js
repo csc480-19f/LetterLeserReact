@@ -47,11 +47,6 @@ class Dashboard extends React.Component {
                 status: msg.message
             })
         }
-        if (msg.messagetype == 'logininfo') {
-            this.setState({
-                status: null
-            })
-        }
         if (msg.messagetype == 'graphs') {
             this.setState({
                 status: null

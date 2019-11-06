@@ -26,7 +26,12 @@ class Login extends Component {
     };
     this.ws.onmessage = evt => {
       console.log("Recieved:", evt.data);
-      var json = JSON.parse(evt.data);
+      var json = null;
+      try {
+        json = JSON.parse(evt.data);
+      } catch (error) {
+        console.error(error)
+      }
       if (json.messagetype == "statusupdate") {
         if (json.message == "establising connection") {
           this.setState({
@@ -35,8 +40,8 @@ class Login extends Component {
         }
         if (json.message == "established connection") {
           this.setState({
-            direct: true,
-            statusMessage: null
+            statusMessage: "Connecting...", 
+            errorMessage: null
           });
         }
         if (json.message == "invalid credentials") {
@@ -44,6 +49,16 @@ class Login extends Component {
             errorMessage: true,
             statusMessage: null
           });
+        }
+      } else if (json.messagetype == "logininfo") {
+        var isValidJSON = this.checkRecievedPacketForValidity(json);
+        if (isValidJSON == true) {
+          this.setState({
+            direct: true
+          })
+        } else {
+          // try re-sending previous request
+          this.signup();
         }
       }
       
@@ -54,6 +69,16 @@ class Login extends Component {
         ws: new WebSocket(URL)
       });
     };
+  }
+
+  checkRecievedPacketForValidity = json => {
+    if (json.foldername == null) {
+      return false;
+    } else if (json.favoritename == null) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   handleUsername = event => {

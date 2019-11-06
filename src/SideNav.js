@@ -84,28 +84,35 @@ class SideNav extends React.Component {
     }
 
     handleSaveFavorite = (favoriteName) => {
-        //todo: attachment boolean? flagged email?
-        let month = this.state.startDate.getMonth() + 1;
-        let day = this.state.startDate.getDate();
-        let year = this.state.startDate.getFullYear();
-        let dateString = month + "/" + day + "/" + year + " 23:59";
-        var jsonObj = `
-        {"email":"` + this.email + `",
-        "messagetype":"addfavorite",
-	        "favoritename": "` + favoriteName + `" ,
-	        "filter": {
-		        "foldername": "` + this.state.selectedFolder + `",
-		        "date": "` + dateString + `",
-		        "interval": "` + this.state.filterInterval + `",
-		        "attachment":"` + this.state.attachment + `",
-                "seen":"` + this.state.seen + `"
+        if (this.state.selectedFolder != null) {
+            if (this.state.filterInterval != null) {
+                let month = this.state.startDate.getMonth() + 1;
+                let day = this.state.startDate.getDate();
+                let year = this.state.startDate.getFullYear();
+                let dateString = month + "/" + day + "/" + year + " 23:59";
+                var jsonObj = `
+                    {"email":"` + this.email + `",
+                    "messagetype":"addfavorite",
+                        "favoritename": "` + favoriteName + `" ,
+                        "filter": {
+                            "foldername": "` + this.state.selectedFolder + `",
+                            "date": "` + dateString + `",
+                            "interval": "` + this.state.filterInterval + `",
+                            "attachment":"` + this.state.attachment + `",
+                            "seen":"` + this.state.seen + `"
+                        }
+                    }`;
+                this.setState({
+                    newFavoriteName: null
+                })
+                this.ws.send(jsonObj);
+            } else {
+                alert("Please select an interval value.")
             }
-        }`;
-        this.setState({
-            newFavoriteName: null
-        })
-        console.log(jsonObj)
-        this.ws.send(jsonObj);
+        } else {
+            alert("Please select a folder to analyze.")
+        }
+
     }
 
     handleToggleFolders = () => {
@@ -246,11 +253,11 @@ class SideNav extends React.Component {
                             )
                         }
                     </ul>
-                    {this.state.favorites.length != 0 ? 
-                    <button
-                        style={!this.state.showDeleteFavorites ? { display: 'inline' } : { display: 'none' }}
-                        className="editBtn" onClick={this.handleEditFavorites}>
-                        Edit Favorites
+                    {this.state.favorites.length != 0 ?
+                        <button
+                            style={!this.state.showDeleteFavorites ? { display: 'inline' } : { display: 'none' }}
+                            className="editBtn" onClick={this.handleEditFavorites}>
+                            Edit Favorites
                     </button> : null}
                     <button
                         style={this.state.showDeleteFavorites ? { display: 'inline' } : { display: 'none' }}
