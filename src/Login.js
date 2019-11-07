@@ -34,6 +34,11 @@ class Login extends Component {
       } catch (error) {
         console.error(error)
       }
+      if (json.messagetype == "error") {
+        this.setState({
+          errorMessage: "We have encountered an error. Please try again."
+        })
+      }
       if (json.messagetype == "statusupdate") {
         if (json.message == "establising connection") {
           this.setState({

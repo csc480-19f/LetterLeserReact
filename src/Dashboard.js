@@ -48,12 +48,26 @@ class Dashboard extends React.Component {
         console.log(msg)
         if (msg.messagetype == 'statusupdate') {
             this.setState({
-                status: msg.message
+                status: msg.message,
+                error: null
             })
+        }
+        if (msg.messagetype == 'error') {
+            state = {
+                selectedFavorite: null,
+                score: 0,
+                sentReceived: [],
+                numEmails: [],
+                timeReplies: [],
+                domain: [],
+                folder: [],
+                error: "We have encountered an error. Please try again."
+            };
         }
         if (msg.messagetype == 'graphs') {
             this.setState({
-                status: null
+                status: null,
+                error: null
             })
             var score = msg.sentimentscore.sentimentscore;
             this.setState({
@@ -77,7 +91,8 @@ class Dashboard extends React.Component {
         }
         if (msg.favoritename) {
             this.setState({
-                status: null
+                status: null,
+                error: null
             })
             var favorites = msg.favoritename;
             this.setState({
@@ -86,7 +101,8 @@ class Dashboard extends React.Component {
         }
         if (msg.foldername) {
             this.setState({
-                status: null
+                status: null,
+                error: null
             })
             var folders = msg.foldername;
             this.setState({
@@ -117,7 +133,8 @@ class Dashboard extends React.Component {
         timeReplies: [],
         domain: [],
         folder: [],
-        status: null
+        status: null,
+        error: null
     };
 
     handleHamburgerClick = () => {
@@ -180,6 +197,7 @@ class Dashboard extends React.Component {
                             </span>
                             <span className="logo"><img src="Oswego Logo.svg" height="40"></img></span>
                             <span className="status">
+                                <i>{this.state.error}</i>
                                 <i>{this.state.status}</i>
                             </span>
                             {this.state.status != null ?

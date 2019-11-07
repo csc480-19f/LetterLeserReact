@@ -12,7 +12,6 @@ class SideNav extends React.Component {
         showFavorites: true,
         showFolders: true,
         filterInterval: null,
-        flaggedEmail: false,
         attachment: false,
         seen: false,
         favorites: [],
@@ -124,12 +123,6 @@ class SideNav extends React.Component {
     handleSelectFolder = event => {
         this.setState({
             selectedFolder: event.target.innerText
-        })
-    }
-
-    handleFlaggedCheckmark = () => {
-        this.setState({
-            flaggedEmail: !this.state.flaggedEmail
         })
     }
 
@@ -317,13 +310,6 @@ class SideNav extends React.Component {
                     </div>
                     <div class="filter-title">Contains:</div>
                     <div className="containsGroup">
-                        <label className="container"> Flagged Email
-                                <input type="checkbox"
-                                checked={this.state.flaggedEmail}
-                                onClick={this.handleFlaggedCheckmark}></input>
-                            <span className="checkmark"></span>
-                        </label>
-                        <br></br>
                         <label className="container"> Attachment
                                 <input type="checkbox"
                                 checked={this.state.attachment}
