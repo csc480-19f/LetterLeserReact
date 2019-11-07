@@ -56,7 +56,7 @@ class Dashboard extends React.Component {
             }
         }
         if (msg.messagetype == 'error') {
-            state = {
+            this.setState({
                 selectedFavorite: null,
                 score: 0,
                 sentReceived: [],
@@ -65,7 +65,7 @@ class Dashboard extends React.Component {
                 domain: [],
                 folder: [],
                 error: "We have encountered an error. Please try again."
-            };
+            })
         }
         if (msg.messagetype == 'graphs') {
             this.setState({
