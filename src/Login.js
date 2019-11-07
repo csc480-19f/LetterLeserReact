@@ -1,17 +1,16 @@
 import React, { Component } from "react";
 import { GoogleLogin } from "react-google-login";
 import config from "./config.json";
-import Dashboard from './Dashboard';
-import './Login.css';
+import Dashboard from "./Dashboard";
+import "./Login.css";
 import { sign } from "crypto";
+import JSEncrypt from "jsencrypt";
 
 const URL = "ws://localhost:10120/LetterLeser/engine";
+var favorites = [];
+var folders = [];
 
 class Login extends Component {
-
-  favorites = [];
-  folders = [];
-
   constructor(props) {
     super(props);
     this.state = {
@@ -20,7 +19,8 @@ class Login extends Component {
       direct: false,
       return: "",
       errorMessage: false,
-      statusMessage: null
+      statusMessage: null,
+      key: null
     };
   }
   ws = new WebSocket(URL);
@@ -34,45 +34,46 @@ class Login extends Component {
       try {
         json = JSON.parse(evt.data);
       } catch (error) {
-        console.error(error)
+        console.error(error);
       }
-      if (json != null) {
-        if (json.messagetype == "error") {
+      if (json.messagetype == "error") {
+        this.setState({
+          errorMessage: "We have encountered an error. Please try again."
+        });
+      }
+      if (json.messagetype == "statusupdate") {
+        if (json.message == "establising connection") {
           this.setState({
-            errorMessage: "We have encountered an error. Please try again."
-          })
+            statusMessage: "Connecting..."
+          });
         }
-        if (json.messagetype == "statusupdate") {
-          if (json.message == "establising connection") {
-            this.setState({
-              statusMessage: "Connecting..."
-            })
-          }
-          if (json.message == "established connection") {
-            this.setState({
-              statusMessage: "Connecting...", 
-              errorMessage: null
-            });
-          }
-          if (json.message == "invalid credentials") {
-            this.setState({
-              errorMessage: true,
-              statusMessage: null
-            });
-          }
-        } else if (json.messagetype == "logininfo") {
-          var isValidJSON = this.checkRecievedPacketForValidity(json);
-          if (isValidJSON == true) {
-            this.setState({
-              direct: true
-            })
-          } else {
-            // try re-sending previous request
-            this.signup();
-          }
+        if (json.message == "established connection") {
+          this.setState({
+            statusMessage: "Connecting...",
+            errorMessage: null
+          });
         }
-      } else {
-        this.signup();
+        if (json.message == "invalid credentials") {
+          this.setState({
+            errorMessage: true,
+            statusMessage: null
+          });
+        }
+      } else if (json.messagetype == "logininfo") {
+        var isValidJSON = this.checkRecievedPacketForValidity(json);
+        if (isValidJSON == true) {
+          this.setState({
+            direct: true
+          });
+        } else {
+          // try re-sending previous request
+          this.signup();
+        }
+      }
+      else if (json.messagetype == "key") {
+      this.setState({
+        key: json.message
+      })
       }
     };
     this.ws.onclose = () => {
@@ -93,44 +94,42 @@ class Login extends Component {
       this.favorites = json.favoritename;
       return true;
     }
-  }
+  };
 
   handleUsername = event => {
     this.setState({
       username: event.target.value
-    })
-  }
+    });
+  };
 
   handlePassword = event => {
     this.setState({
       password: event.target.value
-    })
-  }
+    });
+  };
 
   enterPressed(event) {
     var code = event.keyCode || event.which;
-    if (code === 13) { //13 is the enter keycode
+    if (code === 13) {
+      //13 is the enter keycode
       this.signup();
-    } 
-}
+    }
+  }
 
   signup = () => {
-
+  let encrypt = new JSEncrypt();
+  encrypt.setPublicKey(this.state.key);
+  let emailencryp = encrypt.encrypt(this.state.username);
+  let passencryp = encrypt.encrypt(this.state.password);
     let jsonObj = {
       messagetype: "login",
-      email: this.state.username,
-      pass: this.state.password
-    }
+      email: emailencryp,
+      pass: passencryp
+    };
 
     localStorage.setItem("email", this.state.username);
 
     this.ws.send(JSON.stringify(jsonObj));
-
-    //const { direct, data } = this.state;
-    //console.log("Sent:", res.Zi);
-    // store the clientId for logout later
-    //localStorage.setItem("clientId", res.Zi.access_token);
-    //this.ws.send(JSON.stringify(res.Zi));
   };
 
   render() {
@@ -141,39 +140,50 @@ class Login extends Component {
     return (
       <div className="background">
         {direct ? (
-          <Dashboard 
+          <Dashboard
             ws={this.ws}
             favorites={this.favorites}
             folders={this.folders}
           />
         ) : (
-            <div className="card">
-              <span className="logo-login"><img src="LetterLeser-Green.svg" ></img></span>
-              <div className="googleLoginBtn">
-                <input className="creds" placeholder="Email Address" onChange={this.handleUsername}></input>
-                <br></br> <br></br>
-                <input type="password" className="creds" placeholder="Password" onChange={this.handlePassword} onKeyPress={this.enterPressed.bind(this)}></input>
-                <br></br>
-                <br></br>
-                <button className="loginBtn" onClick={this.signup}><b>Login</b></button>
-                {this.state.statusMessage != null ? 
+          <div className="card">
+            <span className="logo-login">
+              <img src="LetterLeser-Green.svg"></img>
+            </span>
+            <div className="googleLoginBtn">
+              <input
+                className="creds"
+                placeholder="Email Address"
+                onChange={this.handleUsername}
+              ></input>
+              <br></br> <br></br>
+              <input
+                type="password"
+                className="creds"
+                placeholder="Password"
+                onChange={this.handlePassword}
+                onKeyPress={this.enterPressed.bind(this)}
+              ></input>
+              <br></br>
+              <br></br>
+              <button className="loginBtn" onClick={this.signup}>
+                <b>Login</b>
+              </button>
+              {this.state.statusMessage != null ? (
                 <div className="statusContainer">
                   <br></br>
-                  <span className = "loaderLogin"></span>
-                  <span className="statusMsg"> 
-                    {this.state.statusMessage}
-                  </span> 
+                  <span className="loaderLogin"></span>
+                  <span className="statusMsg">{this.state.statusMessage}</span>
                 </div>
-                : null
-                }
-                {this.state.errorMessage == true ? (
-                  <div className="errorMessage">
-                  <br></br><br></br>
+              ) : null}
+              {this.state.errorMessage == true ? (
+                <div className="errorMessage">
+                  <br></br>
+                  <br></br>
                   <div>Unable to connect to email.</div>
                 </div>
-                ) : null }
-                
-                {/* <GoogleLogin
+              ) : null}
+              {/* <GoogleLogin
                   clientId={config.GOOGLE_CLIENT_ID}
                   buttonText="Login"
                   onSuccess={responseGoogle}
@@ -182,9 +192,9 @@ class Login extends Component {
                     <button className="loginBtn" onClick={onClick} disabled={disabled}><b>Login</b></button>
                   )}
                 /> */}
-              </div>
             </div>
-          )}
+          </div>
+        )}
       </div>
     );
   }
