@@ -47,10 +47,13 @@ class Dashboard extends React.Component {
     handleMessageReceive = (msg) => {
         console.log(msg)
         if (msg.messagetype == 'statusupdate') {
-            this.setState({
-                status: msg.message,
-                error: null
-            })
+            if (msg.message != 'Favorite has been added' 
+                && msg.message != 'Favorite has been removed') {
+                this.setState({
+                    status: msg.message,
+                    error: null
+                })
+            }
         }
         if (msg.messagetype == 'error') {
             state = {
