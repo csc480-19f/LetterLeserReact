@@ -224,7 +224,7 @@ class SideNav extends React.Component {
                 </a>
                 <div style={!this.state.showFavorites ? { display: 'none' } : {}}>
                     <ul className="sidenav-lists">
-                        {
+                        {   this.state.favorites ? (
                             this.state.favorites.map(el =>
                                 <li value={el}
                                     className="item"
@@ -243,10 +243,10 @@ class SideNav extends React.Component {
                                         {el}
                                     </span>
                                 </li>
-                            )
+                            ) ) : null
                         }
                     </ul>
-                    {this.state.favorites.length != 0 ?
+                    {this.state.favorites && this.state.favorites.length != 0 ?
                         <button
                             style={!this.state.showDeleteFavorites ? { display: 'inline' } : { display: 'none' }}
                             className="editBtn" onClick={this.handleEditFavorites}>
@@ -269,12 +269,13 @@ class SideNav extends React.Component {
                 <div style={!this.state.showFolders ? { display: 'none' } : {}}>
                     <ul className="sidenav-lists">
                         {
+                            this.state.folders != null ? (
                             this.state.folders.map(el =>
                                 <li value={el}
                                     className="item"
                                     style={el === this.state.selectedFolder ? { color: '#f8ce74' } : { color: 'white' }}
                                     onClick={this.handleSelectFolder}> {el}
-                                </li>)
+                                </li>) ) : null
                         }
                     </ul>
                 </div>

@@ -20,15 +20,16 @@ const URL = "ws://localhost:10120/LetterLeser/engine";
 class Dashboard extends React.Component {
 
     ws = null;
+    foldersList = [];
+    favoritesList = [];
 
     constructor(props) {
         super(props)
         this.handler = this.handler.bind(this)
         this.ws = props.ws;
-        this.setState({
-            foldersList: props.folders,
-            favoritesList: props.favorites
-        })
+        this.foldersList = props.folders;
+        console.log(this.foldersList)
+        this.favoritesList = props.favoritesList;
     }
 
     componentDidMount() {
@@ -42,13 +43,19 @@ class Dashboard extends React.Component {
                 ws: new WebSocket(URL)
             });
         };
+        console.log(this.foldersList)
+        this.setState({
+            favoritesList: this.favoritesList,
+            foldersList: this.foldersList
+        })
     }
 
     handleMessageReceive = (msg) => {
         console.log(msg)
         if (msg.messagetype == 'statusupdate') {
             if (msg.message != 'Favorite has been added' 
-                && msg.message != 'Favorite has been removed') {
+                && msg.message != 'Favorite has been removed'
+                && msg.message != "finished validating") {
                 this.setState({
                     status: msg.message,
                     error: null
@@ -97,9 +104,9 @@ class Dashboard extends React.Component {
                 status: null,
                 error: null
             })
-            var favorites = msg.favoritename;
+            this.favoritesList = msg.favoritename;
             this.setState({
-                favoritesList: favorites
+                favoritesList: this.favoritesList
             })
         }
         if (msg.foldername) {
@@ -107,9 +114,9 @@ class Dashboard extends React.Component {
                 status: null,
                 error: null
             })
-            var folders = msg.foldername;
+            this.foldersList = msg.foldername;
             this.setState({
-                foldersList: folders
+                foldersList: this.foldersList
             })
         }
     }

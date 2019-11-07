@@ -6,10 +6,12 @@ import './Login.css';
 import { sign } from "crypto";
 
 const URL = "ws://localhost:10120/LetterLeser/engine";
-var favorites = [];
-var folders = [];
 
 class Login extends Component {
+
+  favorites = [];
+  folders = [];
+
   constructor(props) {
     super(props);
     this.state = {
@@ -34,41 +36,44 @@ class Login extends Component {
       } catch (error) {
         console.error(error)
       }
-      if (json.messagetype == "error") {
-        this.setState({
-          errorMessage: "We have encountered an error. Please try again."
-        })
-      }
-      if (json.messagetype == "statusupdate") {
-        if (json.message == "establising connection") {
+      if (json != null) {
+        if (json.messagetype == "error") {
           this.setState({
-            statusMessage: "Connecting..."
+            errorMessage: "We have encountered an error. Please try again."
           })
         }
-        if (json.message == "established connection") {
-          this.setState({
-            statusMessage: "Connecting...", 
-            errorMessage: null
-          });
+        if (json.messagetype == "statusupdate") {
+          if (json.message == "establising connection") {
+            this.setState({
+              statusMessage: "Connecting..."
+            })
+          }
+          if (json.message == "established connection") {
+            this.setState({
+              statusMessage: "Connecting...", 
+              errorMessage: null
+            });
+          }
+          if (json.message == "invalid credentials") {
+            this.setState({
+              errorMessage: true,
+              statusMessage: null
+            });
+          }
+        } else if (json.messagetype == "logininfo") {
+          var isValidJSON = this.checkRecievedPacketForValidity(json);
+          if (isValidJSON == true) {
+            this.setState({
+              direct: true
+            })
+          } else {
+            // try re-sending previous request
+            this.signup();
+          }
         }
-        if (json.message == "invalid credentials") {
-          this.setState({
-            errorMessage: true,
-            statusMessage: null
-          });
-        }
-      } else if (json.messagetype == "logininfo") {
-        var isValidJSON = this.checkRecievedPacketForValidity(json);
-        if (isValidJSON == true) {
-          this.setState({
-            direct: true
-          })
-        } else {
-          // try re-sending previous request
-          this.signup();
-        }
+      } else {
+        this.signup();
       }
-      
     };
     this.ws.onclose = () => {
       console.log("disconnected");
