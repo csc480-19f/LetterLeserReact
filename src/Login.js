@@ -127,7 +127,7 @@ class Login extends Component {
       pass: passencryp
     };
 
-    localStorage.setItem("email", this.state.username);
+    localStorage.setItem("email", emailencryp);
 
     this.ws.send(JSON.stringify(jsonObj));
   };
