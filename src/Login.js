@@ -76,12 +76,21 @@ class Login extends Component {
       })
       }
     };
+
     this.ws.onclose = () => {
       console.log("disconnected");
-      this.setState({
-        ws: new WebSocket(URL)
-      });
+      this.reconnect();
     };
+    
+  }
+
+  reconnect = () => {
+    let socket = this.ws;
+    setTimeout(function() {
+      socket.onopen = () => {
+        console.log("connected");
+      };
+    }, 1000);
   }
 
   checkRecievedPacketForValidity = json => {

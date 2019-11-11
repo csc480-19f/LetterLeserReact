@@ -39,9 +39,7 @@ class Dashboard extends React.Component {
         };
         this.ws.onclose = () => {
             console.log("disconnected");
-            this.setState({
-                ws: new WebSocket(URL)
-            });
+            this.reconnect();
         };
         console.log(this.foldersList)
         this.setState({
@@ -50,10 +48,19 @@ class Dashboard extends React.Component {
         })
     }
 
+    reconnect = () => {
+        let socket = this.ws;
+        setTimeout(function () {
+            socket.onopen = () => {
+                console.log("connected");
+            };
+        }, 1000);
+    }
+
     handleMessageReceive = (msg) => {
         console.log(msg)
         if (msg.messagetype == 'statusupdate') {
-            if (msg.message != 'Favorite has been added' 
+            if (msg.message != 'Favorite has been added'
                 && msg.message != 'Favorite has been removed'
                 && msg.message != "finished validating") {
                 this.setState({
