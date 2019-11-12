@@ -85,10 +85,18 @@ class Login extends Component {
   }
 
   reconnect = () => {
+    let encrypt = new JSEncrypt();
+    encrypt.setPublicKey(this.state.key);
+    let emailencryp = encrypt.encrypt(this.state.username);
     let socket = this.ws;
     setTimeout(function() {
       socket.onopen = () => {
         console.log("connected");
+        let json = `{
+          "messagetype":"reconnect", 
+          "email":"`+ emailencryp + `" 
+        }`;
+        socket.send(json);
       };
     }, 1000);
   }
@@ -136,6 +144,7 @@ class Login extends Component {
       pass: passencryp
     };
 
+    localStorage.setItem("unencrypemail", this.state.username);
     localStorage.setItem("email", emailencryp);
 
     this.ws.send(JSON.stringify(jsonObj));

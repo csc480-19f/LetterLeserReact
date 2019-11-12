@@ -13,6 +13,7 @@ import EmailsByDomain from './charts/emails-by-domain';
 import EmailsByFolder from './charts/emails-by-folder';
 import NumberOfEmails from './charts/number-of-emails';
 import TimeBetweenReplies from './charts/time-between-replies';
+import JSEncrypt from "jsencrypt";
 
 const URL = "ws://localhost:10120/LetterLeser/engine";
 
@@ -35,7 +36,16 @@ class Dashboard extends React.Component {
     componentDidMount() {
         this.ws.onmessage = evt => {
             console.log("Recieved:", evt.data);
-            this.handleMessageReceive(JSON.parse(evt.data));
+            var json = null;
+            try {
+                json = JSON.parse(evt.data);
+            } catch (error) {
+                console.error(error);
+            }
+            if (json != null) {
+                this.handleMessageReceive(json);
+            }
+            
         };
         this.ws.onclose = () => {
             console.log("disconnected");
@@ -53,6 +63,11 @@ class Dashboard extends React.Component {
         setTimeout(function () {
             socket.onopen = () => {
                 console.log("connected");
+                let json = `{
+                    "messagetype":"reconnect",
+                    "email": "` + localStorage.getItem("email") + `"
+                  }`;
+                  socket.send(json);
             };
         }, 1000);
     }
@@ -125,6 +140,13 @@ class Dashboard extends React.Component {
             this.setState({
                 foldersList: this.foldersList
             })
+        }
+        if (msg.messagetype == "key") {
+            let encrypt = new JSEncrypt();
+            encrypt.setPublicKey(msg.message);
+            let email = localStorage.getItem("unencrypemail");
+            let emailencryp = encrypt.encrypt(email);
+            localStorage.setItem("email", emailencryp);
         }
     }
 
