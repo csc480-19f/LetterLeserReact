@@ -6,7 +6,7 @@ import "./Login.css";
 import { sign } from "crypto";
 import JSEncrypt from "jsencrypt";
 
-const URL = "ws://localhost:10120/LetterLeser/engine";
+const URL = "ws://pi.cs.oswego.edu:10120/LetterLeser/engine";
 var favorites = [];
 var folders = [];
 

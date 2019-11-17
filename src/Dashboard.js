@@ -93,8 +93,13 @@ class Dashboard extends React.Component {
                 timeReplies: [],
                 domain: [],
                 folder: [],
-                error: "We have encountered an error. Please try again."
+                status: null,
+                error: "We have encountered an error. Logging out..."
             })
+            var that = this;
+            setTimeout(function () {
+                that.handler(true);
+              }, 3000);
         }
         if (msg.messagetype == 'graphs') {
             this.setState({
