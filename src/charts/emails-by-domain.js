@@ -17,6 +17,7 @@ const options = {
         width: 400,
         backgroundColor: 'rgba(0,0,0,0)'
     },
+    colors: ['#F8CC40', '#3F8C86', '#275937', '#F3A641', '#C29D72'],
     credits: {
         enabled: false
     },

@@ -101,24 +101,23 @@ class Dashboard extends React.Component {
                 status: null,
                 error: null
             })
-            var score = msg.sentimentscore.sentimentscore;
             this.setState({
-                score: score
+                score: msg.graphs.sentimentscore
             })
             this.setState({
-                domain: msg.emailbydomain
+                domain: msg.graphs.emailbydomain
             })
             this.setState({
-                folder: msg.emailbyfolder
+                folder: msg.graphs.emailbyfolder
             })
             this.setState({
-                sentReceived: msg.emailssentandrecieved
+                sentReceived: msg.graphs.emailssentandrecieved
             })
             this.setState({
-                numEmails: msg.numberofemails
+                numEmails: msg.graphs.numberofemails
             })
             this.setState({
-                timeReplies: msg.timebetweenreplies
+                timeReplies: msg.graphs.timebetweenreplies
             })
         }
         if (msg.favoritename) {
