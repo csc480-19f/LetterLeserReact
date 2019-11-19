@@ -58,6 +58,13 @@ class Login extends Component {
             error: null
           });
         }
+        if (json.message == "Pulling folders and emails") {
+          this.setState({
+            statusMessage: "Loading in emails...",
+            errorMessage: null,
+            error: null
+          });
+        }
         if (json.message.includes("waiting for connection to open")) {
           this.setState({
             statusMessage: "Connecting...",

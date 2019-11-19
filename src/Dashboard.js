@@ -82,6 +82,13 @@ class Dashboard extends React.Component {
                     status: msg.message,
                     error: null
                 })
+            } else {
+                if (msg.message == "finished validating") {
+                    this.setState({
+                        status: null,
+                        error: null
+                    })
+                }
             }
         }
         if (msg.messagetype == 'error') {
