@@ -87,10 +87,10 @@ class EmailsByFolder extends React.Component {
         })
         for (var i in props.data) {
             var json = {
-                parent: '0',
+                parent: props.data[i].domainobj.domainparent,
                 id: i + 1,
-                name: props.data[i].folderobject,
-                value: props.data[i].contribution
+                name: props.data[i].domainobj.domainname,
+                value: props.data[i].domainobj.contribution
             }
             data.push(json);
         }

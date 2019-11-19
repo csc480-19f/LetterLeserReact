@@ -19,6 +19,7 @@ class Login extends Component {
       direct: false,
       return: "",
       errorMessage: false,
+      error: null,
       statusMessage: null,
       key: null
     };
@@ -38,24 +39,36 @@ class Login extends Component {
       }
       if (json.messagetype == "error") {
         this.setState({
-          errorMessage: "We have encountered an error. Please try again."
+          error: json.message,
+          statusMessage: null
         });
       }
       if (json.messagetype == "statusupdate") {
         if (json.message == "establising connection") {
           this.setState({
-            statusMessage: "Connecting..."
+            statusMessage: "Connecting...",
+            error: null, 
+            errorMessage: null
           });
         }
         if (json.message == "established connection") {
           this.setState({
             statusMessage: "Connecting...",
+            errorMessage: null,
+            error: null
+          });
+        }
+        if (json.message.includes("waiting for connection to open")) {
+          this.setState({
+            statusMessage: "Connecting...",
+            error: null,
             errorMessage: null
           });
         }
         if (json.message == "invalid credentials") {
           this.setState({
             errorMessage: true,
+            error: null,
             statusMessage: null
           });
         }
@@ -170,6 +183,7 @@ class Login extends Component {
             </span>
             <div className="googleLoginBtn">
               <input
+                type="email"
                 className="creds"
                 placeholder="Email Address"
                 onChange={this.handleUsername}
@@ -199,6 +213,13 @@ class Login extends Component {
                   <br></br>
                   <br></br>
                   <div>Unable to connect to email.</div>
+                </div>
+              ) : null}
+              {this.state.error != true ? (
+                <div className="errorMessage">
+                  <br></br>
+                  <br></br>
+                  <div>{this.state.error}</div>
                 </div>
               ) : null}
               {/* <GoogleLogin

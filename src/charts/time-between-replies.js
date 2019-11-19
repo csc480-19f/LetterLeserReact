@@ -62,11 +62,11 @@ class TimeBetweenReplies extends React.Component {
         chart.update({
             series: [{
                 name: 'Sent Emails',
-                data: props.data.sentemails,
+                data: props.data.SentEmails,
                 color: '#275937'
             }, {
                 name: 'Received Emails',
-                data: props.data.recievedemails,
+                data: props.data.ReceivedEmails,
                 color: '#F6BC3D'
             }]
         })

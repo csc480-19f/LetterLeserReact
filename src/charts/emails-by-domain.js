@@ -82,12 +82,12 @@ class EmailsByDomain extends React.Component {
             parent: '',
             name: 'Emails'
         })
-        for (var i in props.data.emailbydomain) {
+        for (var i in props.data) {
             var json = {
-                parent: '0',
+                parent: props.data[i].domainobj.domainparent,
                 id: i + 1,
-                name: props.data.emailbydomain[i].domainname,
-                value: props.data.emailbydomain[i].contribution
+                name: props.data[i].domainobj.domainname,
+                value: props.data[i].domainobj.contribution
             }
             data.push(json);
         }
