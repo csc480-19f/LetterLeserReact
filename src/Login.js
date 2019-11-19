@@ -127,6 +127,7 @@ class Login extends Component {
     } else if (json.favoritename == null) {
       return false;
     } else {
+      console.log(json)
       this.folders = json.foldername;
       this.favorites = json.favoritename;
       return true;

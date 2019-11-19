@@ -29,8 +29,7 @@ class Dashboard extends React.Component {
         this.handler = this.handler.bind(this)
         this.ws = props.ws;
         this.foldersList = props.folders;
-        console.log(this.foldersList)
-        this.favoritesList = props.favoritesList;
+        this.favoritesList = props.favorites;
     }
 
     componentDidMount() {
@@ -52,6 +51,7 @@ class Dashboard extends React.Component {
             this.reconnect();
         };
         console.log(this.foldersList)
+        console.log(this.favoritesList)
         this.setState({
             favoritesList: this.favoritesList,
             foldersList: this.foldersList
@@ -77,7 +77,8 @@ class Dashboard extends React.Component {
         if (msg.messagetype == 'statusupdate') {
             if (msg.message != 'Favorite has been added'
                 && msg.message != 'Favorite has been removed'
-                && msg.message != "finished validating") {
+                && msg.message != "finished validating"
+                && msg.message != "no emails obtained with current filter") {
                 this.setState({
                     status: msg.message,
                     error: null
@@ -87,6 +88,12 @@ class Dashboard extends React.Component {
                     this.setState({
                         status: null,
                         error: null
+                    })
+                }
+                if (msg.message == "no emails obtained with current filter") {
+                    this.setState({
+                        status: null,
+                        error: "No emails obtained with current filter"
                     })
                 }
             }
