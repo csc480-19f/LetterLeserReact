@@ -5,19 +5,24 @@ import { faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 import "react-datepicker/dist/react-datepicker.css";
 import './SideNav.css';
 
+var prepSelectedFolder = [];
+
 class SideNav extends React.Component {
 
+    initDate = new Date();
+    thisMonth = this.initDate.getMonth();
+
     state = {
-        startDate: new Date(),
+        startDate: new Date(this.initDate.setMonth(this.thisMonth - 1)),
         showFavorites: true,
         showFolders: true,
-        filterInterval: null,
+        filterInterval: "month",
         attachment: false,
-        seen: false,
+        seen: true,
         favorites: [],
         folders: [],
         selectedFavorite: null,
-        selectedFolder: null,
+        selectedFolder: prepSelectedFolder,
         newFavoriteName: null,
         showDeleteFavorites: false
     };
@@ -38,6 +43,11 @@ class SideNav extends React.Component {
             favorites: props.favorites,
             folders: props.folders
         });
+        if (props.folders.length > 0) {
+            this.setState({
+                selectedFolder: props.folders[0]
+            })
+        }
         if (this.state.newFavoriteName != null && props.saveFavorite != false) {
             if (this.state.newFavoriteName != props.saveFavorite) {
                 this.handleSaveFavorite(props.saveFavorite);
@@ -163,11 +173,11 @@ class SideNav extends React.Component {
 
     clearFilter = () => {
         this.setState({
-            startDate: new Date(),
-            filterInterval: null,
+            startDate: new Date(this.initDate.setMonth(this.thisMonth - 1)),
+            filterInterval: "month",
             flaggedEmail: false,
             attachment: false,
-            seen: false
+            seen: true
         })
     }
 
@@ -280,7 +290,7 @@ class SideNav extends React.Component {
                     </ul>
                 </div>
                 <a className="alt">Filters
-                        <span className="clearMsg" onClick={this.clearFilter}>Clear Filter</span>
+                        <b><span className="clearMsg" onClick={this.clearFilter}>Clear Filter</span></b>
                 </a>
                 <div className="sidenav-contents">
                     <div class="filter-title">Start Date:</div>

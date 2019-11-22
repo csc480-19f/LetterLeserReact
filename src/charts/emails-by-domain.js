@@ -4,12 +4,6 @@ import HighchartsReact from 'highcharts-react-official';
 import sunburst from 'highcharts/modules/sunburst.js';
 sunburst(Highcharts);
 
-var data = [{
-    id: '0.0',
-    parent: '',
-    name: 'Emails',
-}];
-
 const options = {
     chart: {
         type: 'sunburst',
@@ -17,7 +11,7 @@ const options = {
         width: 400,
         backgroundColor: 'rgba(0,0,0,0)'
     },
-    colors: ['#F8CC40', '#3F8C86', '#275937', '#F3A641', '#C29D72'],
+    colors: ['#ffffff00', '#F8CC40', '#3F8C86', '#275937', '#F3A641', '#C29D72'],
     credits: {
         enabled: false
     },
@@ -26,7 +20,11 @@ const options = {
     },
     series: [{
         type: "sunburst",
-        data: [],
+        data: [{
+            id: '0.0',
+            parent: '',
+            name: 'Emails',
+        }],
         allowDrillToNode: true,
         cursor: 'pointer',
         dataLabels: {
@@ -80,7 +78,7 @@ class EmailsByDomain extends React.Component {
         data.push({
             id: '0',
             parent: '',
-            name: 'Emails'
+            name: 'Emails',
         })
         for (var i in props.data) {
             var json = {

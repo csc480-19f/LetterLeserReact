@@ -44,7 +44,7 @@ class Dashboard extends React.Component {
             if (json != null) {
                 this.handleMessageReceive(json);
             }
-            
+
         };
         this.ws.onclose = () => {
             console.log("disconnected");
@@ -67,7 +67,7 @@ class Dashboard extends React.Component {
                     "messagetype":"reconnect",
                     "email": "` + localStorage.getItem("email") + `"
                   }`;
-                  socket.send(json);
+                socket.send(json);
             };
         }, 1000);
     }
@@ -78,7 +78,7 @@ class Dashboard extends React.Component {
             if (msg.message != 'Favorite has been added'
                 && msg.message != 'Favorite has been removed'
                 && msg.message != "finished validating"
-                && msg.message != "no emails obtained with current filter") {
+                && !msg.message.includes("No emails obtained with current filter")) {
                 this.setState({
                     status: msg.message,
                     error: null
@@ -90,10 +90,40 @@ class Dashboard extends React.Component {
                         error: null
                     })
                 }
-                if (msg.message == "no emails obtained with current filter") {
+                if (msg.message.includes("No emails obtained with current filter")) {
                     this.setState({
                         status: null,
-                        error: "No emails obtained with current filter"
+                        error: "No emails obtained with current filter", 
+                        isFreshDashboard: false
+                    })
+                    let domainEmpty = [
+                        {
+                        "domainobj" : {
+                            "domainparent" : "0",
+                            "id" : "1",
+                            "domainname" : 'No Emails',
+                            "contribution" : "1"
+                        }}
+                    ];
+                    let sentReceivedEmpty = {
+                        "SentEmails" : "[0,0,0,0,0,0,0]",
+                        "ReceivedEmails" : "[0,0,0,0,0,0,0]"
+                    };
+                    let numEmailsEmpty = [[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],
+                        [0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]];
+
+                    let timeRepliesEmpty =  {
+                        "SentEmails" : "[0,0,0,0,0,0,0]",
+                        "ReceivedEmails" : "[0,0,0,0,0,0,0]"
+                    };
+
+                    this.setState({
+                        score: 0,
+                        domain: domainEmpty,
+                        folder: domainEmpty,
+                        sentReceived: sentReceivedEmpty,
+                        numEmails: numEmailsEmpty,
+                        timeReplies: timeRepliesEmpty
                     })
                 }
             }
@@ -113,12 +143,13 @@ class Dashboard extends React.Component {
             var that = this;
             setTimeout(function () {
                 that.handler(true);
-              }, 3000);
+            }, 3000);
         }
         if (msg.messagetype == 'graphs') {
             this.setState({
                 status: null,
-                error: null
+                error: null,
+                isFreshDashboard: false
             })
             this.setState({
                 score: msg.graphs.sentimentscore
@@ -175,6 +206,7 @@ class Dashboard extends React.Component {
     }
 
     state = {
+        isFreshDashboard: true,
         showContextMenu: false,
         logout: false,
         message: null,
@@ -280,26 +312,33 @@ class Dashboard extends React.Component {
                         </div>
 
                         <div className="dashboardBody">
-                            <Sentiment
-                                score={this.state.score}
-                            ></Sentiment>
-                            <div className="chart-right">
-                                <SentAndReceived
-                                    data={this.state.sentReceived}></SentAndReceived>
-                            </div>
-                            <br></br>
-                            <EmailsByDomain
-                                data={this.state.domain}
-                            ></EmailsByDomain>
-                            <div className="chart-right">
-                                <NumberOfEmails data={this.state.numEmails}></NumberOfEmails>
-                            </div>
-                            <EmailsByFolder
-                                data={this.state.folder}
-                            ></EmailsByFolder>
-                            <div className="chart-right time">
-                                <TimeBetweenReplies data={this.state.timeReplies}></TimeBetweenReplies>
-                            </div>
+
+                            {!this.state.isFreshDashboard ? (
+                                <div>
+                                    <Sentiment
+                                        score={this.state.score}
+                                    ></Sentiment>
+                                    <div className="chart-right">
+                                        <SentAndReceived
+                                            data={this.state.sentReceived}></SentAndReceived>
+                                    </div>
+                                    <br></br>
+                                    <EmailsByDomain
+                                        data={this.state.domain}
+                                    ></EmailsByDomain>
+                                    <div className="chart-right">
+                                        <NumberOfEmails data={this.state.numEmails}></NumberOfEmails>
+                                    </div>
+                                    <EmailsByFolder
+                                        data={this.state.folder}
+                                    ></EmailsByFolder>
+                                    <div className="chart-right time">
+                                        <TimeBetweenReplies data={this.state.timeReplies}></TimeBetweenReplies>
+                                    </div>
+                                </div>
+                            ) : <div className="pleaseSelectFilter">
+                                <h4>Please select a filter to view email analysis..</h4>
+                                </div>}
                         </div>
                     </div>
                 )}

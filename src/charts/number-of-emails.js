@@ -21,7 +21,7 @@ const options = {
     },
 
     title: {
-        text: 'Number of Emails'
+        text: 'Total Email Traffic'
     },
 
     xAxis: {
@@ -76,7 +76,7 @@ class NumberOfEmails extends React.Component {
         }
         chart.update({
             series: [{
-                name: 'Number of Emails',
+                name: 'Total Email Traffic',
                 borderWidth: 1,
                 data: data,
                 dataLabels: {
