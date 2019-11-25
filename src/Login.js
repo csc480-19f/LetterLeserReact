@@ -44,14 +44,14 @@ class Login extends Component {
         });
       }
       if (json.messagetype == "statusupdate") {
-        if (json.message == "establising connection") {
+        if (json.message == "checking connection") {
           this.setState({
             statusMessage: "Connecting...",
             error: null, 
             errorMessage: null
           });
         }
-        if (json.message == "established connection") {
+        if (json.message == "we found your inbox and getting your folders: this may take a second") {
           this.setState({
             statusMessage: "Connecting...",
             errorMessage: null,

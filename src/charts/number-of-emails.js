@@ -12,8 +12,8 @@ const options = {
         marginTop: 40,
         marginBottom: 80,
         plotBorderWidth: 1,
-        height: 230,
-        width: 470,
+        height: 260,
+        width: 420,
         backgroundColor: 'rgba(0,0,0,0)'
     },
     credits: {

@@ -149,7 +149,8 @@ class Dashboard extends React.Component {
             this.setState({
                 status: null,
                 error: null,
-                isFreshDashboard: false
+                isFreshDashboard: false,
+                disableAnalyzeBtn: false
             })
             this.setState({
                 score: msg.graphs.sentimentscore
@@ -169,6 +170,9 @@ class Dashboard extends React.Component {
             this.setState({
                 timeReplies: msg.graphs.timebetweenreplies
             })
+            this.setState({
+                disableAnalyzeBtn: null
+            });
         }
         if (msg.favoritename) {
             this.setState({
@@ -223,7 +227,8 @@ class Dashboard extends React.Component {
         domain: [],
         folder: [],
         status: null,
-        error: null
+        error: null,
+        disableAnalyzeBtn: null
     };
 
     handleHamburgerClick = () => {
@@ -303,6 +308,7 @@ class Dashboard extends React.Component {
                                 <SideNav
                                     folders={this.state.foldersList}
                                     favorites={this.state.favoritesList}
+                                    disableAnalyzeBtn={this.state.disableAnalyzeBtn}
                                     webSocket={this.ws}
                                     saveFavorite={this.state.saveFavorite}
                                     onClearFavorite={this.handleHideFavorite}
@@ -337,7 +343,7 @@ class Dashboard extends React.Component {
                                     </div>
                                 </div>
                             ) : <div className="pleaseSelectFilter">
-                                <h4>Please select a filter to view email analysis..</h4>
+                                <h4>Please select a filter to view email analysis.</h4>
                                 </div>}
                         </div>
                     </div>

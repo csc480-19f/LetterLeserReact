@@ -13,8 +13,8 @@ class Sentiment extends React.Component {
             plotBackgroundColor: null,
             plotBorderWidth: 0,
             plotShadow: false,
-            height: 230,
-            width: 400,
+            height: 260,
+            width: 420,
             backgroundColor: 'rgba(0,0,0,0)'
         },
         credits: {

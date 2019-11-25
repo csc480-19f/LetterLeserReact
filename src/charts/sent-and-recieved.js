@@ -9,8 +9,8 @@ var categories = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 const options = {
     chart: {
         type: 'bar',
-        height: 230,
-        width: 400,
+        height: 260,
+        width: 420,
         backgroundColor: 'rgba(0,0,0,0)'
     },
     credits: {
@@ -43,8 +43,14 @@ const options = {
         },
         labels: {
             formatter: function () {
-                return Math.abs(this.value) + '%';
+                return Math.abs(this.value);
             }
+        }
+    },
+
+    tooltip: {
+        formatter: function() {
+            return '<b>' + this.series.name + '</b>: ' + Math.abs(this.y);
         }
     },
 

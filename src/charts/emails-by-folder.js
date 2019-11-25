@@ -7,11 +7,11 @@ sunburst(Highcharts);
 const options = {
     chart: {
         type: 'sunburst',
-        height: 230,
-        width: 400,
+        height: 260,
+        width: 420,
         backgroundColor: 'rgba(0,0,0,0)'
     },
-    colors: ['#ffffff00', '#F8CC40', '#3F8C86', '#275937', '#F3A641', '#C29D72'],
+    colors: ['#ffffff00', '#C29D72', '#F8CC40', '#3F8C86', '#275937', '#F3A641', ],
     credits: {
         enabled: false
     },
@@ -44,10 +44,14 @@ const options = {
                     operator: '>',
                     value: 64
                 }
-            }
+            },
         }, {
             level: 2,
             colorByPoint: true,
+            colorVariation: {
+                key: 'brightness',
+                to: 0.25
+            }
         },
         {
             level: 3,
@@ -86,7 +90,7 @@ class EmailsByFolder extends React.Component {
         for (var i in props.data) {
             var json = {
                 parent: props.data[i].domainobj.domainparent,
-                id: i + 1,
+                id: props.data[i].domainobj.domainname,
                 name: props.data[i].domainobj.domainname,
                 value: props.data[i].domainobj.contribution
             }
@@ -120,6 +124,10 @@ class EmailsByFolder extends React.Component {
                 }, {
                     level: 2,
                     colorByPoint: true,
+                    colorVariation: {
+                        key: 'brightness',
+                        to: 0.25
+                    }
                 },
                 {
                     level: 3,

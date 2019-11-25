@@ -7,8 +7,8 @@ var categories = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 const options = {
     chart: {
         type: 'line',
-        height: 230,
-        width: 400,
+        height: 260,
+        width: 450,
         backgroundColor: 'rgba(0,0,0,0)'
     },
     title: {
@@ -16,11 +16,8 @@ const options = {
     },
     legend: {
         layout: 'vertical',
-        align: 'left',
-        verticalAlign: 'top',
-        x: 150,
-        y: 100,
-        floating: true,
+        align: 'right',
+        verticalAlign: 'middle',
         borderWidth: 1,
         backgroundColor: 'rgba(0,0,0,0)'
     },

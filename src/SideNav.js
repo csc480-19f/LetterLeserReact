@@ -5,8 +5,6 @@ import { faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 import "react-datepicker/dist/react-datepicker.css";
 import './SideNav.css';
 
-var prepSelectedFolder = [];
-
 class SideNav extends React.Component {
 
     initDate = new Date();
@@ -22,9 +20,10 @@ class SideNav extends React.Component {
         favorites: [],
         folders: [],
         selectedFavorite: null,
-        selectedFolder: prepSelectedFolder,
+        selectedFolder: null,
         newFavoriteName: null,
-        showDeleteFavorites: false
+        showDeleteFavorites: false,
+        disableAnalyzeBtn: false
     };
 
     ws = null;
@@ -36,14 +35,20 @@ class SideNav extends React.Component {
         this.ws = props.webSocket;
         this.email = localStorage.getItem("email");
     }
+        
 
     componentWillReceiveProps(props) {
         this.setState({
             newFavoriteName: props.saveFavorite,
             favorites: props.favorites,
-            folders: props.folders
+            folders: props.folders,
         });
-        if (props.folders.length > 0) {
+        if (props.disableAnalyzeBtn != null) {
+            this.setState({
+                disableAnalyzeBtn: props.disableAnalyzeBtn
+            });
+        }
+        if (props.folders.length > 0 && this.state.selectedFolder == null) {
             this.setState({
                 selectedFolder: props.folders[0]
             })
@@ -207,8 +212,10 @@ class SideNav extends React.Component {
                         "seen": "` + this.state.seen + `"
                     }
                 }`;
-                console.log(jsonObj)
                 this.ws.send(jsonObj);
+                this.setState({
+                    disableAnalyzeBtn: true
+                })
             } else {
                 alert("Please select an interval value.")
             }
@@ -220,7 +227,7 @@ class SideNav extends React.Component {
     render() {
         return (
             <div className="sidenav">
-                <a className="alt">Favorites
+                {/* <a className="alt">Favorites
                         <span className="caret"
                         style={this.state.showFavorites ? { display: 'none' } : {}}
                         onClick={this.handleToggleFavorites}>
@@ -231,8 +238,8 @@ class SideNav extends React.Component {
                     </span>
                     <span className="space" >&nbsp; &nbsp;</span>
                     <span className="clearMsg" onClick={this.clearFavoriteSelection}>Clear Selection</span>
-                </a>
-                <div style={!this.state.showFavorites ? { display: 'none' } : {}}>
+                </a> */}
+                {/* <div style={!this.state.showFavorites ? { display: 'none' } : {}}>
                     <ul className="sidenav-lists">
                         {   this.state.favorites ? (
                             this.state.favorites.map(el =>
@@ -267,7 +274,7 @@ class SideNav extends React.Component {
                         className="editBtn" onClick={this.doneEditingFavorites}>
                         Done
                     </button>
-                </div>
+                </div> */}
                 <a onClick={this.handleToggleFolders}>Folders
                         <span className="caret"
                         style={this.state.showFolders ? { display: 'none' } : {}}>
@@ -280,16 +287,21 @@ class SideNav extends React.Component {
                     <ul className="sidenav-lists">
                         {
                             this.state.folders != null ? (
-                            this.state.folders.map(el =>
-                                <li value={el}
-                                    className="item"
-                                    style={el === this.state.selectedFolder ? { color: '#f8ce74' } : { color: 'white' }}
-                                    onClick={this.handleSelectFolder}> {el}
-                                </li>) ) : null
+                                this.state.folders.map(el =>
+                                    <li value={el}
+                                        className="item"
+                                        style={el === this.state.selectedFolder ? { color: '#f8ce74' } : { color: 'white' }}
+                                        onClick={this.handleSelectFolder}> {el}
+                                    </li>)) : null
                         }
                     </ul>
+                    <br></br>
+                    <button className="intervalBtn-Apply" onClick={this.sendFilter} disabled={this.state.disableAnalyzeBtn}>
+                        Analyze
+                        </button>
                 </div>
-                <a className="alt">Filters
+
+                {/* <a className="alt">Filters
                         <b><span className="clearMsg" onClick={this.clearFilter}>Clear Filter</span></b>
                 </a>
                 <div className="sidenav-contents">
@@ -345,7 +357,7 @@ class SideNav extends React.Component {
                         </button>
                     </div>
                     <br></br><br></br>
-                </div>
+                </div> */}
             </div>
         );
     }
