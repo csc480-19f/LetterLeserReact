@@ -343,7 +343,7 @@ class Dashboard extends React.Component {
                                     </div>
                                 </div>
                             ) : <div className="pleaseSelectFilter">
-                                <h4>Please select a filter to view email analysis.</h4>
+                                <h4>Please select a folder to view email analysis.</h4>
                                 </div>}
                         </div>
                     </div>
