@@ -26,7 +26,11 @@ class ContextMenu extends React.Component {
         this.setState({
             logout: true
         })
-        this.props.handler(true);
+        this.props.handler(true, false);
+    }
+
+    credits = () => {
+        this.props.handler(false, true);
     }
 
     render() {
@@ -36,7 +40,7 @@ class ContextMenu extends React.Component {
                 <div class="dropdown-content">
                     {/* <a onClick={this.refresh}><img class="menu-icon" src="Refresh-Dark.svg"></img>Refresh</a> <hr></hr> */}
                     {/* <a><img class="menu-icon" src="Settings-Dark.svg"></img>Settings</a> <hr></hr> */}
-                    <a><img class="menu-icon" src="Credits-Dark.svg"></img>Credits</a> <hr></hr>
+                    <a onClick={this.credits}><img class="menu-icon" src="Credits-Dark.svg"></img>Credits</a> <hr></hr>
                     <a onClick={this.logout}><img class="menu-icon" src="Logout-Dark.svg"></img>Logout</a>
                     {/* <GoogleLogout
                         clientId = {clientId}

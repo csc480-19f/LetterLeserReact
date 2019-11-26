@@ -6,6 +6,7 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 import Login from './Login';
 import SideNav from './SideNav';
 import Modal from './common/modal';
+import Credits from './credits';
 import ContextMenu from './ContextMenu';
 import Sentiment from './charts/sentiment';
 import SentAndReceived from './charts/sent-and-recieved';
@@ -26,7 +27,7 @@ class Dashboard extends React.Component {
 
     constructor(props) {
         super(props)
-        this.handler = this.handler.bind(this)
+        this.handler = this.handler.bind(this);
         this.ws = props.ws;
         this.foldersList = props.folders;
         this.favoritesList = props.favorites;
@@ -150,7 +151,8 @@ class Dashboard extends React.Component {
                 status: null,
                 error: null,
                 isFreshDashboard: false,
-                disableAnalyzeBtn: false
+                disableAnalyzeBtn: false,
+                showCredits: false
             })
             this.setState({
                 score: msg.graphs.sentimentscore
@@ -203,9 +205,10 @@ class Dashboard extends React.Component {
         }
     }
 
-    handler(state) {
+    handler(logout, credits) {
         this.setState({
-            logout: state
+            logout: logout, 
+            showCredits: credits
         })
     }
 
@@ -228,7 +231,8 @@ class Dashboard extends React.Component {
         folder: [],
         status: null,
         error: null,
-        disableAnalyzeBtn: null
+        disableAnalyzeBtn: null,
+        showCredits: false
     };
 
     handleHamburgerClick = () => {
@@ -318,8 +322,8 @@ class Dashboard extends React.Component {
                         </div>
 
                         <div className="dashboardBody">
-
-                            {!this.state.isFreshDashboard ? (
+                            {this.state.showCredits ? (<div><Credits></Credits></div>) : null }
+                            {!this.state.showCredits && !this.state.isFreshDashboard  ? (
                                 <div>
                                     <Sentiment
                                         score={this.state.score}
@@ -342,9 +346,11 @@ class Dashboard extends React.Component {
                                         <TimeBetweenReplies data={this.state.timeReplies}></TimeBetweenReplies>
                                     </div>
                                 </div>
-                            ) : <div className="pleaseSelectFilter">
+                            ) : 
+                            !this.state.showCredits ? (
+                            <div className="pleaseSelectFilter">
                                 <h4>Please select a folder to view email analysis.</h4>
-                                </div>}
+                            </div>) : null}
                         </div>
                     </div>
                 )}
