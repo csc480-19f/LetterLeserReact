@@ -124,7 +124,8 @@ class Dashboard extends React.Component {
                         folder: domainEmpty,
                         sentReceived: sentReceivedEmpty,
                         numEmails: numEmailsEmpty,
-                        timeReplies: timeRepliesEmpty
+                        timeReplies: timeRepliesEmpty,
+                        disableAnalyzeBtn: false
                     })
                 }
             }
