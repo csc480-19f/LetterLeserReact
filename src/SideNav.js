@@ -295,11 +295,13 @@ class SideNav extends React.Component {
                                     </li>)) : null
                         }
                     </ul>
-                    <br></br>
-                    <button className="intervalBtn-Apply" onClick={this.sendFilter} disabled={this.state.disableAnalyzeBtn}>
-                        Analyze
-                        </button>
+                    
+                    
                 </div>
+                <br></br>
+                <button className="intervalBtn-Apply" onClick={this.sendFilter} disabled={this.state.disableAnalyzeBtn}>
+                        Analyze
+                </button>
 
                 {/* <a className="alt">Filters
                         <b><span className="clearMsg" onClick={this.clearFilter}>Clear Filter</span></b>

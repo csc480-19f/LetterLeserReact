@@ -23,14 +23,17 @@ const options = {
     },
     xAxis: {
         categories: categories,
+        valueDecimals: 2,
     },
     yAxis: {
+        valueDecimals: 2,
         title: {
             text: 'Time (hours)'
         }
     },
     tooltip: {
         shared: true,
+        valueDecimals: 2,
         valueSuffix: ' hours'
     },
     credits: {

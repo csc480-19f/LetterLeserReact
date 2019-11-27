@@ -270,6 +270,12 @@ class Dashboard extends React.Component {
         })
     }
 
+    handleDashboardClick = () => {
+        this.setState({
+            showContextMenu: false
+        })
+    }
+
     render() {
         return (
             <div>
@@ -308,8 +314,8 @@ class Dashboard extends React.Component {
                                 webSocket={this.ws}
                                 handler={this.handler} /> : null}
                         </div>
-                        <div className="sidenav-container">
-                            <div className="sidenav">
+                        <div className="sidenav-container" onClick={this.handleDashboardClick}>
+                            <div className="sidenav" onClick={this.handleDashboardClick}>
                                 <SideNav
                                     folders={this.state.foldersList}
                                     favorites={this.state.favoritesList}
@@ -323,9 +329,9 @@ class Dashboard extends React.Component {
                         </div>
 
                         <div className="dashboardBody">
-                            {this.state.showCredits ? (<div><Credits></Credits></div>) : null }
+                            {this.state.showCredits ? (<div onClick={this.handleDashboardClick}><Credits></Credits></div>) : null }
                             {!this.state.showCredits && !this.state.isFreshDashboard  ? (
-                                <div>
+                                <div onClick={this.handleDashboardClick}>
                                     <Sentiment
                                         score={this.state.score}
                                     ></Sentiment>
@@ -349,7 +355,7 @@ class Dashboard extends React.Component {
                                 </div>
                             ) : 
                             !this.state.showCredits ? (
-                            <div className="pleaseSelectFilter">
+                            <div className="pleaseSelectFilter" onClick={this.handleDashboardClick}>
                                 <h4>Please select a folder to view email analysis.</h4>
                             </div>) : null}
                         </div>

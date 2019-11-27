@@ -55,11 +55,12 @@
   background-color: white;
   color: #2d2d2d;
   font-weight: bolder;
-  font-size: 13px;
+  font-size: 16px;
   padding: 5px 10px 5px 10px;
-  margin-right: 5px;
-  margin-left: 35px;
+  margin-right: 20px;
+  margin-left: 20px;
   cursor: pointer;
+  width: 80%;
 }
 
 .intervalBtn-Apply:hover {

@@ -119,7 +119,10 @@
   .pleaseSelectFilter {
       color: white;
       text-align: center;
-      margin-top: 25%;
+      padding-top: 25%;
+      height: 100%;
+      width: 100%;
+
   }
   
   @-webkit-keyframes spin {
