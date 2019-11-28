@@ -7,7 +7,7 @@ var categories = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 const options = {
     chart: {
         type: 'line',
-        height: 260,
+        height: 280,
         width: 450,
         backgroundColor: 'rgba(0,0,0,0)'
     },

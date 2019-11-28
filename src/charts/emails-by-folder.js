@@ -7,8 +7,8 @@ sunburst(Highcharts);
 const options = {
     chart: {
         type: 'sunburst',
-        height: 260,
-        width: 420,
+        height: 280,
+        width: 450,
         backgroundColor: 'rgba(0,0,0,0)'
     },
     colors: ['#ffffff00', '#C29D72', '#F8CC40', '#3F8C86', '#275937', '#F3A641', ],

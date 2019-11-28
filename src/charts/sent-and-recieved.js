@@ -9,7 +9,7 @@ var categories = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 const options = {
     chart: {
         type: 'bar',
-        height: 260,
+        height: 280,
         width: 420,
         backgroundColor: 'rgba(0,0,0,0)'
     },

@@ -341,12 +341,14 @@ class Dashboard extends React.Component {
                                     </div>
                                     <br></br>
                                     <EmailsByDomain
+                                        className="chart-left"
                                         data={this.state.domain}
                                     ></EmailsByDomain>
                                     <div className="chart-right">
                                         <NumberOfEmails data={this.state.numEmails}></NumberOfEmails>
                                     </div>
                                     <EmailsByFolder
+                                        className="chart-left"
                                         data={this.state.folder}
                                     ></EmailsByFolder>
                                     <div className="chart-right time">

@@ -12,7 +12,7 @@ const options = {
         marginTop: 40,
         marginBottom: 80,
         plotBorderWidth: 1,
-        height: 260,
+        height: 280,
         width: 420,
         backgroundColor: 'rgba(0,0,0,0)'
     },
@@ -37,6 +37,14 @@ const options = {
         min: 0,
         minColor: '#FFFFFF',
         maxColor: '#275937'
+    },
+
+    tooltip : {
+        formatter: function () {
+            let time = this.series.chart.yAxis[0].categories[this.point.y];
+            let weekday = this.series.chart.xAxis[0].categories[this.point.x]
+            return weekday + " from " + time + ": " + this.point.value + " emails";
+        }
     },
 
     legend: {
