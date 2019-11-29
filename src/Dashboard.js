@@ -79,7 +79,7 @@ class Dashboard extends React.Component {
             if (msg.message != 'Favorite has been added'
                 && msg.message != 'Favorite has been removed'
                 && msg.message != "finished validating"
-                && !msg.message.includes("No emails obtained with current filter")) {
+                && !msg.message.includes("No emails exist in that folder")) {
                 this.setState({
                     status: msg.message,
                     error: null
@@ -91,7 +91,7 @@ class Dashboard extends React.Component {
                         error: null
                     })
                 }
-                if (msg.message.includes("No emails obtained with current filter")) {
+                if (msg.message.includes("No emails exist in that folder")) {
                     this.setState({
                         status: null,
                         error: "No emails obtained with current filter", 
