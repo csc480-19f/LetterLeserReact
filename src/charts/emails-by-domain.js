@@ -11,7 +11,7 @@ const options = {
         width: 450,
         backgroundColor: 'rgba(0,0,0,0)'
     },
-    colors: ['#ffffff00', '#F8CC40', '#3F8C86', '#275937', '#F3A641', '#C29D72'],
+    colors: ['#F8CC40', '#3F8C86', '#275937', '#F3A641', '#C29D72'],
     credits: {
         enabled: false
     },
@@ -24,6 +24,7 @@ const options = {
             id: '0.0',
             parent: '',
             name: 'Emails',
+            color: '#ffffff00'
         }],
         allowDrillToNode: true,
         cursor: 'pointer',
@@ -83,6 +84,7 @@ class EmailsByDomain extends React.Component {
             id: '0',
             parent: '',
             name: 'Emails',
+            color: '#ffffff00'
         })
         for (var i in props.data) {
             var json = {
