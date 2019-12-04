@@ -6,7 +6,9 @@ DarkUnica(Highcharts);
 
 class Sentiment extends React.Component {
 
-    score = 0;
+    positiveScore = 0;
+    negativeScore = 0;
+    neutralScore = 0;
 
     options = {
         chart: {
@@ -60,7 +62,9 @@ class Sentiment extends React.Component {
 
     constructor(props) {
         super(props);
-        this.score = props.score;
+        this.positiveScore = props.score.positive;
+        this.neutralScore = props.score.neutral;
+        this.negativeScore = props.score.negative;
     }
 
     componentDidMount() {
@@ -68,7 +72,9 @@ class Sentiment extends React.Component {
     }
 
     componentWillReceiveProps(props) {
-        this.score = props.score;
+        this.positiveScore = props.score.positive;
+        this.neutralScore = props.score.neutral;
+        this.negativeScore = props.score.negative;
         this.updateData();
     }
 
@@ -77,14 +83,19 @@ class Sentiment extends React.Component {
         chart.update({
             series: [{
                 data: [{
-                    y: Number(this.score),
+                    y: Number(this.positiveScore),
                     name: "Positive",
                     color: "#498958"
                 },
                 {
-                    y: 100 - Number(this.score),
-                    name: '',
-                    color: 'transparent'
+                    y: Number(this.neutralScore),
+                    name: 'Neutral',
+                    color: "gray"
+                },
+                {
+                    y: Number(this.negativeScore),
+                    name: 'Negative',
+                    color: "red"
                 }]
             }]
         });
