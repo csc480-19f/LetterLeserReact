@@ -97,6 +97,11 @@ class Dashboard extends React.Component {
                         error: "No emails obtained with current filter", 
                         isFreshDashboard: false
                     })
+                    let sentimentEmpty = {
+                        "positive" : "0",
+                        "negative" : "0",
+                        "neutral" : "0"
+                    }
                     let domainEmpty = [
                         {
                         "domainobj" : {
@@ -107,19 +112,19 @@ class Dashboard extends React.Component {
                         }}
                     ];
                     let sentReceivedEmpty = {
-                        "SentEmails" : "[0,0,0,0,0,0,0]",
-                        "ReceivedEmails" : "[0,0,0,0,0,0,0]"
+                        "SentEmails" : [0,0,0,0,0,0,0],
+                        "ReceivedEmails" : [0,0,0,0,0,0,0]
                     };
                     let numEmailsEmpty = [[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],
                         [0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]];
 
                     let timeRepliesEmpty =  {
-                        "SentEmails" : "[0,0,0,0,0,0,0]",
-                        "ReceivedEmails" : "[0,0,0,0,0,0,0]"
+                        "SentEmails" : [0,0,0,0,0,0,0],
+                        "ReceivedEmails" : [0,0,0,0,0,0,0]
                     };
 
                     this.setState({
-                        score: 0,
+                        score: sentimentEmpty,
                         domain: domainEmpty,
                         folder: domainEmpty,
                         sentReceived: sentReceivedEmpty,
